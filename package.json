@@ -1,12 +1,12 @@
 {
   "name": "react-native-autoscroll-flatlist",
-  "version": "0.1.0",
+  "version": "0.2.1",
   "description": "An enhanced React Native FlatList component to provide auto-scrolling functionality",
   "author": "Kelvin Chu <chubillkelvin@gmail.com> (github.com/RageBill)",
   "license": "MIT",
   "main": "index.js",
   "scripts": {
-    "build": "tsc",
+    "build": "rm ./build/dist/* && tsc && cp ./package.json ./build/dist",
     "lint": "tslint 'src/**/*.{ts,tsx}'",
     "format": "prettier --config prettier.json --write \"src/**/*.{ts,tsx,css}\""
   },
