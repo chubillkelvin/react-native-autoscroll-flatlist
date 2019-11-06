@@ -1,6 +1,6 @@
 {
   "name": "react-native-autoscroll-flatlist",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "An enhanced React Native FlatList component to provide auto-scrolling functionality",
   "author": "Kelvin Chu <chubillkelvin@gmail.com> (github.com/RageBill)",
   "license": "MIT",
@@ -18,6 +18,10 @@
     "chat client",
     "typescript"
   ],
+  "repository": {
+    "type": "git",
+    "url": "github.com/RageBill/react-native-autoscroll-flatlist"
+  },
   "scripts": {
     "build": "rm ./build/dist/* && tsc && cp ./package.json ./build/dist && cp ./README.md ./build/dist",
     "lint": "tslint 'src/**/*.{ts,tsx}'",
