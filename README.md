@@ -8,11 +8,15 @@ Note: only work for vertical orientation for now.
 
 # Installation
 
-`npm install --save react-native-autoscroll-flatlist`
+```
+npm install --save react-native-autoscroll-flatlist
+```
 
 or
 
-`yarn add react-native-autoscroll-flatlist`
+```
+yarn add react-native-autoscroll-flatlist
+```
 
 # Properties
 
