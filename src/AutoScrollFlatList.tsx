@@ -12,15 +12,10 @@ import {FlatList, FlatListProps, LayoutChangeEvent, NativeScrollEvent, NativeSyn
 interface Props<T> extends Exclude<FlatListProps<T>, "ref"> {}
 
 export default class AutoScrollFlatList<T> extends React.PureComponent<Props<T>> {
-    private readonly listRef: React.RefObject<FlatList<T>>;
+    private readonly listRef: React.RefObject<FlatList<T>> = React.createRef();
     private flatListHeight: number = 0;
     private contentHeight: number = 0;
     private enabledAutoScrollToEnd: boolean = true;
-
-    constructor(props: Props<T>) {
-        super(props);
-        this.listRef = React.createRef();
-    }
 
     scrollToEnd = () => {
         if (this.listRef.current && this.enabledAutoScrollToEnd) {

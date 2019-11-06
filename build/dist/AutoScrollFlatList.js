@@ -1,8 +1,9 @@
 import React from "react";
 import { FlatList, StyleSheet } from "react-native";
 export default class AutoScrollFlatList extends React.PureComponent {
-    constructor(props) {
-        super(props);
+    constructor() {
+        super(...arguments);
+        this.listRef = React.createRef();
         this.flatListHeight = 0;
         this.contentHeight = 0;
         this.enabledAutoScrollToEnd = true;
@@ -39,7 +40,6 @@ export default class AutoScrollFlatList extends React.PureComponent {
                 onScroll(event);
             }
         };
-        this.listRef = React.createRef();
     }
     render() {
         const { contentContainerStyle, ...restProps } = this.props;

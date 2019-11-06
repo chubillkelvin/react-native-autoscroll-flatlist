@@ -14,7 +14,6 @@ export default class AutoScrollFlatList<T> extends React.PureComponent<Props<T>>
     private flatListHeight;
     private contentHeight;
     private enabledAutoScrollToEnd;
-    constructor(props: Props<T>);
     scrollToEnd: () => void;
     onLayout: (event: LayoutChangeEvent) => void;
     onContentSizeChange: (width: number, height: number) => void;
