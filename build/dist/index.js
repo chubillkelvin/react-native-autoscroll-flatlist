@@ -42,7 +42,11 @@ export default class AutoScrollFlatList extends React.PureComponent {
         };
     }
     render() {
-        const { contentContainerStyle, ...restProps } = this.props;
+        const { flatListRef, contentContainerStyle, ...restProps } = this.props;
+        // Return ref of FlatList for access from outside of component
+        if (this.listRef && flatListRef !== undefined) {
+            flatListRef(this.listRef);
+        }
         return <FlatList {...restProps} ref={this.listRef} contentContainerStyle={[styles.contentContainer, contentContainerStyle]} onLayout={this.onLayout} onContentSizeChange={this.onContentSizeChange} onScroll={this.onScroll}/>;
     }
 }

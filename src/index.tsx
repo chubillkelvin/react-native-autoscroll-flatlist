@@ -9,7 +9,9 @@ import {FlatList, FlatListProps, LayoutChangeEvent, NativeScrollEvent, NativeSyn
  * This is to prevent auto-scrolling from annoying the user when the user tries to scroll and look for something in the list.
  */
 
-interface Props<T> extends Exclude<FlatListProps<T>, "ref"> {}
+interface Props<T> extends FlatListProps<T> {
+    flatListRef?: (refObj: React.RefObject<FlatList<T>>) => void;
+}
 
 export default class AutoScrollFlatList<T> extends React.PureComponent<Props<T>> {
     private readonly listRef: React.RefObject<FlatList<T>> = React.createRef();
@@ -58,7 +60,11 @@ export default class AutoScrollFlatList<T> extends React.PureComponent<Props<T>>
     };
 
     render() {
-        const {contentContainerStyle, ...restProps} = this.props;
+        const {flatListRef, contentContainerStyle, ...restProps} = this.props;
+        // Return ref of FlatList for access from outside of component
+        if (this.listRef && flatListRef !== undefined) {
+            flatListRef(this.listRef);
+        }
         return <FlatList {...restProps} ref={this.listRef} contentContainerStyle={[styles.contentContainer, contentContainerStyle]} onLayout={this.onLayout} onContentSizeChange={this.onContentSizeChange} onScroll={this.onScroll} />;
     }
 }

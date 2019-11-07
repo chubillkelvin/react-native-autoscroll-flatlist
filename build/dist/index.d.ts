@@ -1,5 +1,5 @@
 import React from "react";
-import { FlatListProps, LayoutChangeEvent, NativeScrollEvent, NativeSyntheticEvent } from "react-native";
+import { FlatList, FlatListProps, LayoutChangeEvent, NativeScrollEvent, NativeSyntheticEvent } from "react-native";
 /**
  * An enhanced React Native <FlatList> component to provide auto-scrolling functionality.
  * Auto-scrolling will only be enabled if:
@@ -7,7 +7,8 @@ import { FlatListProps, LayoutChangeEvent, NativeScrollEvent, NativeSyntheticEve
  * 2. the user has scrolled back and/or past the end of the list
  * This is to prevent auto-scrolling from annoying the user when the user tries to scroll and look for something in the list.
  */
-interface Props<T> extends Exclude<FlatListProps<T>, "ref"> {
+interface Props<T> extends FlatListProps<T> {
+    flatListRef?: (refObj: React.RefObject<FlatList<T>>) => void;
 }
 export default class AutoScrollFlatList<T> extends React.PureComponent<Props<T>> {
     private readonly listRef;
