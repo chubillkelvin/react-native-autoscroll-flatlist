@@ -13,7 +13,7 @@
   "dependencies": {
     "react": "16.11.0",
     "react-native": "0.61.2",
-    "react-native-autoscroll-flatlist": "^1.0.4"
+    "react-native-autoscroll-flatlist": "^1.1.0"
   },
   "devDependencies": {
     "@types/react": "*",
