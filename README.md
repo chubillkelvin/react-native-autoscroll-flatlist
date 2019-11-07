@@ -6,6 +6,10 @@ This component enables auto-scrolling on new item added to the list - which work
 
 Note: only work for vertical orientation for now.
 
+# Demo
+
+![demo](https://github.com/RageBill/react-native-autoscroll-flatlist/blob/master/demo.gif?raw=true)
+
 # Installation
 
 ```
