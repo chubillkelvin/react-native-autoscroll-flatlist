@@ -14,7 +14,7 @@ import AutoScrollFlatList from "react-native-autoscroll-flatlist";
 
 enum Colors {
     "#e04836",
-    "#f39D41",
+    "#f39d41",
     "#8d5924",
     "#5696bc",
     "#2f5168",
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
     },
     flatList: {
-        backgroundColor: "white",
+        backgroundColor: "#ffffff",
     },
     message: {
         fontSize: 24,
