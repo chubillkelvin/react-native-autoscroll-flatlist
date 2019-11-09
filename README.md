@@ -1,17 +1,7 @@
-<h1 align="center">
-  <a href="https://github.com/RageBill/react-native-autoscroll-flatlist">
-    React Native AutoScroll FlatList
-  </a>
-</h1>
+# react-native-autoscroll-flatlist
 
-<p align="center">
-  <a href="https://github.com/RageBill/react-native-autoscroll-flatlist/blob/master/LICENSE">
-    <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="react-native-autoscroll-flatlist is released under the MIT license." />
-  </a>
-  <a href="https://travis-ci.org/RageBill/react-native-autoscroll-flatlist">
-    <img src="https://travis-ci.org/RageBill/react-native-autoscroll-flatlist.svg?branch=master" alt="build status for react-native-autoscroll-flatlist" />
-  </a>
-</p>
+[![react-native-autoscroll-flatlist is released under the MIT license.](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/RageBill/react-native-autoscroll-flatlist/blob/master/LICENSE)
+[![build status for react-native-autoscroll-flatlist](https://travis-ci.org/RageBill/react-native-autoscroll-flatlist.svg?branch=master)](https://travis-ci.org/RageBill/react-native-autoscroll-flatlist)
 
 An enhanced version of the original react-native `<FlatList>` component with built-in support for both Javascript and Typescript usage.
 
