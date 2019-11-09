@@ -23,9 +23,8 @@
     "url": "https://github.com/RageBill/react-native-autoscroll-flatlist.git"
   },
   "scripts": {
-    "build": "rm ./build/dist/* && tsc && cp ./package.json ./build/dist && cp ./README.md ./build/dist",
-    "lint": "tslint 'src/**/*.{ts,tsx}'",
-    "format": "prettier --config prettier.json --write \"src/**/*.{ts,tsx,css}\""
+    "check": "node ./scripts/check.js",
+    "build": "node ./scripts/build.js"
   },
   "peerDependencies": {
     "react": "^16.10.0",
@@ -34,6 +33,7 @@
   "devDependencies": {
     "@types/react": "*",
     "@types/react-native": "^0.60.0",
+    "fs-extra": "8.1.0",
     "react": "^16.10.0",
     "react-native": "^0.60.0",
     "react-native-scripts-ts": "1.7.0",
