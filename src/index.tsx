@@ -10,10 +10,15 @@ import {FlatList, FlatListProps, LayoutChangeEvent, NativeScrollEvent, NativeSyn
  */
 
 interface Props<T> extends FlatListProps<T> {
+    threshold: number;
     flatListRef?: (refObj: React.RefObject<FlatList<T>>) => void;
 }
 
 export default class AutoScrollFlatList<T> extends React.PureComponent<Props<T>> {
+    static defaultProps = {
+        threshold: 0,
+    };
+
     private readonly listRef: React.RefObject<FlatList<T>> = React.createRef();
     private flatListHeight: number = 0;
     private contentHeight: number = 0;
@@ -52,7 +57,7 @@ export default class AutoScrollFlatList<T> extends React.PureComponent<Props<T>>
          *  CAVEAT: Android has precision error here from 4 decimal places, therefore we need to use Math.floor() to make sure the calculation is correct on Android.
          */
         if (this.listRef.current) {
-            this.enabledAutoScrollToEnd = event.nativeEvent.contentOffset.y >= Math.floor(this.contentHeight - this.flatListHeight);
+            this.enabledAutoScrollToEnd = event.nativeEvent.contentOffset.y + this.props.threshold >= Math.floor(this.contentHeight - this.flatListHeight);
         }
 
         // User-defined onScroll event
