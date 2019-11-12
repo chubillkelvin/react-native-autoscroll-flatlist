@@ -30,7 +30,7 @@ to test the project in an Android emulator (you need to manually start the Andro
 
 # Properties
 
-This component extends the official [`FlatListProps`](https://facebook.github.io/react-native/docs/flatlist) with an additional prop of `flatListRef`.
+This component extends the official [`FlatListProps`](https://facebook.github.io/react-native/docs/flatlist) with the following additional props:
 
 | Prop        | Type            | Required | Default value | Description                                        |
 | ----------- | --------------- | -------- | ------------- | -------------------------------------------------- |

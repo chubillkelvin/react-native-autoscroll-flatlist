@@ -27,7 +27,7 @@ yarn add react-native-autoscroll-flatlist
 
 # Properties
 
-This component extends the official [`FlatListProps`](https://facebook.github.io/react-native/docs/flatlist) with an additional prop of `flatListRef`.
+This component extends the official [`FlatListProps`](https://facebook.github.io/react-native/docs/flatlist) with the following additional props:
 
 | Prop        | Type            | Required | Default value | Description                                        |
 | ----------- | --------------- | -------- | ------------- | -------------------------------------------------- |
