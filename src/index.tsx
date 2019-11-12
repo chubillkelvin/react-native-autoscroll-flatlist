@@ -47,9 +47,12 @@ export default class AutoScrollFlatList<T> extends React.PureComponent<Props<T>>
     };
 
     onScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-        // if scrollTop is at end / user scroll to end, the FlatList will now enabledAutoScrollToEnd
+        /**
+         *  Default behavior: if scrollTop is at the end of <Flatlist>, autoscroll will be enabled.
+         *  CAVEAT: Android has precision error here from 4 decimal places, therefore we need to use Math.floor() to make sure the calculation is correct on Android.
+         */
         if (this.listRef.current) {
-            this.enabledAutoScrollToEnd = event.nativeEvent.contentOffset.y >= this.contentHeight - this.flatListHeight;
+            this.enabledAutoScrollToEnd = event.nativeEvent.contentOffset.y >= Math.floor(this.contentHeight - this.flatListHeight);
         }
 
         // User-defined onScroll event
