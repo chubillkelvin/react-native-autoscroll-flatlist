@@ -29,14 +29,9 @@ yarn add react-native-autoscroll-flatlist
 
 This component extends the official [`FlatListProps`](https://facebook.github.io/react-native/docs/flatlist) with the following additional props:
 
-| Prop        | Type            | Required | Default value | Description                                        |
-| ----------- | --------------- | -------- | ------------- | -------------------------------------------------- |
-| threshold   | number          | No       | 0             | Distance from end of list to enable auto-scrolling |
-| flatListRef | React.RefObject | No       | undefined     | `ref` of the actual `<FlatList>` component         |
-
-Note that the original `ref` prop refers to the wrapper component's ref.
-
-If you wish to get the actual ref of the `<FlatList>` component inside, please use `flatListRef`.
+| Prop      | Type   | Required | Default value | Description                                        |
+| --------- | ------ | -------- | ------------- | -------------------------------------------------- |
+| threshold | number | No       | 0             | Distance from end of list to enable auto-scrolling |
 
 # Example Usage
 
@@ -50,10 +45,12 @@ and simply use it like an ordinary `<FlatList>`, for example:
 
 ```
 <AutoScrollFlatList
-    flatListRef={this.myRef}
+    ref={this.myRef}
     threshold={20}
     data={myData}
     renderItem={({item, index}) => <YourComponent item={item} index={index} />}
     keyExtractor={item => item.id}
 />
 ```
+
+You can check out the `example` folder for further details.

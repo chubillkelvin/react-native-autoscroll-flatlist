@@ -32,14 +32,9 @@ to test the project in an Android emulator (you need to manually start the Andro
 
 This component extends the official [`FlatListProps`](https://facebook.github.io/react-native/docs/flatlist) with the following additional props:
 
-| Prop        | Type            | Required | Default value | Description                                        |
-| ----------- | --------------- | -------- | ------------- | -------------------------------------------------- |
-| threshold   | number          | No       | 0             | Distance from end of list to enable auto-scrolling |
-| flatListRef | React.RefObject | No       | undefined     | `ref` of the actual `<FlatList>` component         |
-
-Note that the original `ref` prop refers to the wrapper component's ref.
-
-If you wish to get the actual ref of the `<FlatList>` component inside, please use `flatListRef`.
+| Prop      | Type   | Required | Default value | Description                                        |
+| --------- | ------ | -------- | ------------- | -------------------------------------------------- |
+| threshold | number | No       | 0             | Distance from end of list to enable auto-scrolling |
 
 # Troubleshoot
 

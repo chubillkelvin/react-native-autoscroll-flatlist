@@ -9,7 +9,7 @@
  */
 
 import React from "react";
-import {SafeAreaView, StyleSheet, View, Text} from "react-native";
+import {SafeAreaView, StyleSheet, View, Text, FlatList, TouchableHighlight} from "react-native";
 import AutoScrollFlatList from "react-native-autoscroll-flatlist";
 
 enum Colors {
@@ -33,6 +33,7 @@ interface State {
 }
 
 export default class App extends React.PureComponent<Props, State> {
+    private readonly ref: React.RefObject<FlatList<Message>> = React.createRef();
     private timer: NodeJS.Timer | null = null;
 
     constructor(props: Props) {
@@ -61,13 +62,18 @@ export default class App extends React.PureComponent<Props, State> {
         clearInterval(this.timer!);
     }
 
+    scrollToEnd = () => this.ref.current && this.ref.current.scrollToEnd({animated: false});
+
     render() {
         return (
             <SafeAreaView style={styles.container}>
                 <View style={styles.title}>
                     <Text style={styles.titleText}>react-native-autoscroll-flatlist</Text>
                 </View>
-                <AutoScrollFlatList data={this.state.messages} renderItem={({item}) => <Text style={[styles.message, {color: item.color}]}>{item.content}</Text>} keyExtractor={item => item.id} style={styles.flatList} />
+                <AutoScrollFlatList ref={this.ref} data={this.state.messages} renderItem={({item}) => <Text style={[styles.message, {color: item.color}]}>{item.content}</Text>} keyExtractor={item => item.id} style={styles.flatList} />
+                <TouchableHighlight style={styles.scrollToEndButton} onPress={this.scrollToEnd}>
+                    <Text style={styles.buttonText}>Scroll To End</Text>
+                </TouchableHighlight>
             </SafeAreaView>
         );
     }
@@ -91,6 +97,16 @@ const styles = StyleSheet.create({
         backgroundColor: "#ffffff",
     },
     message: {
+        fontSize: 24,
+    },
+    scrollToEndButton: {
+        height: 60,
+        width: "100%",
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#e04836",
+    },
+    buttonText: {
         fontSize: 24,
     },
 });
