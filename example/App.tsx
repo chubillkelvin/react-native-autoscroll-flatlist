@@ -9,7 +9,7 @@
  */
 
 import React from "react";
-import {SafeAreaView, StyleSheet, View, Text, FlatList, TouchableHighlight} from "react-native";
+import {SafeAreaView, StyleSheet, View, Text, TouchableHighlight} from "react-native";
 import AutoScrollFlatList from "react-native-autoscroll-flatlist";
 
 enum Colors {
@@ -33,7 +33,7 @@ interface State {
 }
 
 export default class App extends React.PureComponent<Props, State> {
-    private readonly ref: React.RefObject<FlatList<Message>> = React.createRef();
+    private readonly ref: React.RefObject<AutoScrollFlatList<Message>> = React.createRef();
     private timer: NodeJS.Timer | null = null;
 
     constructor(props: Props) {

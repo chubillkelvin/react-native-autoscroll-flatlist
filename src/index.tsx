@@ -9,29 +9,69 @@ import {FlatList, FlatListProps, LayoutChangeEvent, NativeScrollEvent, NativeSyn
  * This is to prevent auto-scrolling from annoying the user when the user tries to scroll and look for something in the list.
  */
 
-interface ForwardedProps<T> extends FlatListProps<T> {
-    ref?: React.Ref<AutoScrollFlatList<T>>;
-    threshold?: number;
-}
-
 interface Props<T> extends FlatListProps<T> {
-    flatListRef: React.RefObject<FlatList<T>>;
     threshold: number;
 }
 
-class AutoScrollFlatList<T> extends React.PureComponent<Props<T>> {
+export default class AutoScrollFlatList<T> extends React.PureComponent<Props<T>> {
+    static defaultProps = {
+        threshold: 0,
+    };
+
+    private readonly listRef: React.RefObject<FlatList<T>> = React.createRef();
     private flatListHeight: number = 0;
     private contentHeight: number = 0;
     private enabledAutoScrollToEnd: boolean = true;
 
-    scrollToEnd = () => {
-        const {flatListRef} = this.props;
-        if (flatListRef.current) {
-            flatListRef.current.scrollToOffset({offset: this.contentHeight - this.flatListHeight});
+    /**
+     *  Exposing FlatList Methods To AutoScrollFlatList's Ref
+     */
+
+    scrollToEnd = (params?: {animated: boolean}) => {
+        this.scrollToOffset({offset: this.contentHeight - this.flatListHeight, animated: params ? params.animated : true});
+    };
+
+    scrollToIndex = (params: {index: number; viewOffset?: number; viewPosition?: number; animated?: boolean}) => {
+        if (this.listRef.current) {
+            this.listRef.current.scrollToIndex(params);
         }
     };
 
-    onLayout = (event: LayoutChangeEvent) => {
+    scrollToItem = (params: {item: T; viewPosition?: number; animated: boolean}) => {
+        if (this.listRef.current) {
+            this.listRef.current.scrollToItem(params);
+        }
+    };
+
+    scrollToOffset = (params: {offset: number; animated?: boolean}) => {
+        if (this.listRef.current) {
+            this.listRef.current.scrollToOffset(params);
+        }
+    };
+
+    recordInteraction = () => {
+        if (this.listRef.current) {
+            this.listRef.current.recordInteraction();
+        }
+    };
+
+    flashScrollIndicators = () => {
+        if (this.listRef.current) {
+            this.listRef.current.flashScrollIndicators();
+        }
+    };
+
+    getMetrics = () => {
+        if (this.listRef.current) {
+            return this.listRef.current.getMetrics();
+        }
+    };
+
+    /**
+     * End of Exposed Methods
+     */
+
+    private onLayout = (event: LayoutChangeEvent) => {
         this.flatListHeight = event.nativeEvent.layout.height;
 
         // User-defined onLayout event
@@ -41,10 +81,9 @@ class AutoScrollFlatList<T> extends React.PureComponent<Props<T>> {
         }
     };
 
-    onContentSizeChange = (width: number, height: number) => {
+    private onContentSizeChange = (width: number, height: number) => {
         this.contentHeight = height;
-        const {flatListRef} = this.props;
-        if (flatListRef.current && this.enabledAutoScrollToEnd) {
+        if (this.listRef.current && this.enabledAutoScrollToEnd) {
             this.scrollToEnd();
         }
 
@@ -55,12 +94,12 @@ class AutoScrollFlatList<T> extends React.PureComponent<Props<T>> {
         }
     };
 
-    onScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    private onScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
         /**
          *  Default behavior: if scrollTop is at the end of <Flatlist>, autoscroll will be enabled.
          *  CAVEAT: Android has precision error here from 4 decimal places, therefore we need to use Math.floor() to make sure the calculation is correct on Android.
          */
-        if (this.props.flatListRef.current) {
+        if (this.listRef.current) {
             this.enabledAutoScrollToEnd = event.nativeEvent.contentOffset.y + this.props.threshold >= Math.floor(this.contentHeight - this.flatListHeight);
         }
 
@@ -72,15 +111,10 @@ class AutoScrollFlatList<T> extends React.PureComponent<Props<T>> {
     };
 
     render() {
-        const {flatListRef, contentContainerStyle, threshold, ...restProps} = this.props;
-        return <FlatList {...restProps} ref={flatListRef} contentContainerStyle={[styles.contentContainer, contentContainerStyle]} onLayout={this.onLayout} onContentSizeChange={this.onContentSizeChange} onScroll={this.onScroll} />;
+        const {contentContainerStyle, threshold, ...restProps} = this.props;
+        return <FlatList {...restProps} ref={this.listRef} contentContainerStyle={[styles.contentContainer, contentContainerStyle]} onLayout={this.onLayout} onContentSizeChange={this.onContentSizeChange} onScroll={this.onScroll} />;
     }
 }
-
-export default React.forwardRef<FlatList<any>, ForwardedProps<any>>((props, ref) => {
-    const listRef: React.RefObject<FlatList<any>> = ref && ref.hasOwnProperty("current") ? (ref as React.RefObject<FlatList<any>>) : React.createRef();
-    return <AutoScrollFlatList {...props} threshold={props.threshold || 10} flatListRef={listRef} />;
-});
 
 const styles = StyleSheet.create({
     contentContainer: {
