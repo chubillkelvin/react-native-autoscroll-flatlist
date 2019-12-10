@@ -82,6 +82,9 @@ export default class AutoScrollFlatList<T> extends React.PureComponent<Props<T>>
 
     private onLayout = (event: LayoutChangeEvent) => {
         this.flatListHeight = event.nativeEvent.layout.height;
+        if (this.listRef.current && this.enabledAutoScrollToEnd) {
+            this.scrollToEnd();
+        }
 
         // User-defined onLayout event
         const {onLayout} = this.props;

@@ -5360,10 +5360,10 @@ react-lifecycles-compat@^3.0.0:
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
 
-react-native-autoscroll-flatlist@1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/react-native-autoscroll-flatlist/-/react-native-autoscroll-flatlist-1.4.0.tgz#67d2c3ee45fbf7c27417e9e1340ce2c6bff8e37f"
-  integrity sha512-Nm96uDSBlWMPogHMlx74ciyJ1JtWyZukwGAkYomQcG4+3odgUU6yXE68cYEc0eK2GRDRlRS7PPy5DKre3j8Kug==
+react-native-autoscroll-flatlist@1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/react-native-autoscroll-flatlist/-/react-native-autoscroll-flatlist-1.4.1.tgz#28f7c2428e5d185f937278663af43addb613ae07"
+  integrity sha512-pE7g/du/kbcRXFxyR2g6t7dbUAc4Tvc0k1I7z6kG4CgJGqJv/Op8J1txLvm2UhVTbbBpEL4bAGQ0Zd9d9nq18Q==
 
 react-native-scripts-ts@1.7.0:
   version "1.7.0"
