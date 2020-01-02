@@ -18,16 +18,26 @@ interface Props<T> extends FlatListProps<T> {
     indicatorComponent?: React.ComponentType<any> | React.ReactElement | null;
 }
 
-export default class AutoScrollFlatList<T> extends React.PureComponent<Props<T>> {
+interface State {
+    enabledAutoScrollToEnd: boolean;
+}
+
+export default class AutoScrollFlatList<T> extends React.PureComponent<Props<T>, State> {
     static defaultProps: Pick<Props<any>, "threshold" | "showScrollToEndIndicator"> = {
         threshold: 0,
         showScrollToEndIndicator: true,
     };
 
+    constructor(props: Props<T>) {
+        super(props);
+        this.state = {
+            enabledAutoScrollToEnd: true,
+        };
+    }
+
     private readonly listRef: React.RefObject<FlatList<T>> = React.createRef();
     private flatListHeight: number = 0;
     private contentHeight: number = 0;
-    private enabledAutoScrollToEnd: boolean = true;
 
     // TODO: use componentDidUpdate, then compare data.length < prevData.length to trigger scroll or show newMessageAlert, to replace onContentSizeChange?
     // TODO: I think it's better because onContentSizeChange not necessarily means should scroll. discuss.
@@ -82,7 +92,7 @@ export default class AutoScrollFlatList<T> extends React.PureComponent<Props<T>>
 
     private onLayout = (event: LayoutChangeEvent) => {
         this.flatListHeight = event.nativeEvent.layout.height;
-        if (this.listRef.current && this.enabledAutoScrollToEnd) {
+        if (this.listRef.current && this.state.enabledAutoScrollToEnd) {
             this.scrollToEnd();
         }
 
@@ -95,7 +105,7 @@ export default class AutoScrollFlatList<T> extends React.PureComponent<Props<T>>
 
     private onContentSizeChange = (width: number, height: number) => {
         this.contentHeight = height;
-        if (this.enabledAutoScrollToEnd) {
+        if (this.state.enabledAutoScrollToEnd) {
             this.scrollToEnd();
         }
 
@@ -111,13 +121,13 @@ export default class AutoScrollFlatList<T> extends React.PureComponent<Props<T>>
          *  Default behavior: if scrollTop is at the end of <Flatlist>, autoscroll will be enabled.
          *  CAVEAT: Android has precision error here from 4 decimal places, therefore we need to use Math.floor() to make sure the calculation is correct on Android.
          */
-        this.enabledAutoScrollToEnd = event.nativeEvent.contentOffset.y + this.props.threshold >= Math.floor(this.contentHeight - this.flatListHeight);
-
-        // User-defined onScroll event
-        const {onScroll} = this.props;
-        if (onScroll) {
-            onScroll(event);
-        }
+        this.setState({enabledAutoScrollToEnd: event.nativeEvent.contentOffset.y + this.props.threshold >= Math.floor(this.contentHeight - this.flatListHeight)}, () => {
+            // User-defined onScroll event
+            const {onScroll} = this.props;
+            if (onScroll) {
+                onScroll(event);
+            }
+        });
     };
 
     private renderDefaultIndicatorComponent = () => (
@@ -128,10 +138,11 @@ export default class AutoScrollFlatList<T> extends React.PureComponent<Props<T>>
 
     render() {
         const {contentContainerStyle, threshold, showScrollToEndIndicator, newMessageAlertRenderer, indicatorContainerStyle, indicatorComponent, ...restProps} = this.props;
+        const {enabledAutoScrollToEnd} = this.state;
         return (
             <View style={styles.container}>
                 <FlatList {...restProps} ref={this.listRef} contentContainerStyle={[styles.contentContainer, contentContainerStyle]} onLayout={this.onLayout} onContentSizeChange={this.onContentSizeChange} onScroll={this.onScroll} />
-                {showScrollToEndIndicator && !this.enabledAutoScrollToEnd && <TouchableWithoutFeedback onPress={() => this.scrollToEnd()}>{indicatorComponent === undefined ? this.renderDefaultIndicatorComponent() : indicatorComponent}</TouchableWithoutFeedback>}
+                {showScrollToEndIndicator && !enabledAutoScrollToEnd && <TouchableWithoutFeedback onPress={() => this.scrollToEnd()}>{indicatorComponent === undefined ? this.renderDefaultIndicatorComponent() : indicatorComponent}</TouchableWithoutFeedback>}
             </View>
         );
     }
