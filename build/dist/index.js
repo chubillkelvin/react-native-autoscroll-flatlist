@@ -1,12 +1,12 @@
 import React from "react";
-import { FlatList, StyleSheet } from "react-native";
+import { FlatList, StyleSheet, TouchableWithoutFeedback, View } from "react-native";
+import Triangle from "./Triangle";
 export default class AutoScrollFlatList extends React.PureComponent {
-    constructor() {
-        super(...arguments);
+    constructor(props) {
+        super(props);
         this.listRef = React.createRef();
         this.flatListHeight = 0;
         this.contentHeight = 0;
-        this.enabledAutoScrollToEnd = true;
         // TODO: use componentDidUpdate, then compare data.length < prevData.length to trigger scroll or show newMessageAlert, to replace onContentSizeChange?
         // TODO: I think it's better because onContentSizeChange not necessarily means should scroll. discuss.
         /**
@@ -50,7 +50,7 @@ export default class AutoScrollFlatList extends React.PureComponent {
          */
         this.onLayout = (event) => {
             this.flatListHeight = event.nativeEvent.layout.height;
-            if (this.listRef.current && this.enabledAutoScrollToEnd) {
+            if (this.listRef.current && this.state.enabledAutoScrollToEnd) {
                 this.scrollToEnd();
             }
             // User-defined onLayout event
@@ -61,7 +61,7 @@ export default class AutoScrollFlatList extends React.PureComponent {
         };
         this.onContentSizeChange = (width, height) => {
             this.contentHeight = height;
-            if (this.enabledAutoScrollToEnd) {
+            if (this.state.enabledAutoScrollToEnd) {
                 this.scrollToEnd();
             }
             // User-defined onContentSizeChange event
@@ -75,17 +75,28 @@ export default class AutoScrollFlatList extends React.PureComponent {
              *  Default behavior: if scrollTop is at the end of <Flatlist>, autoscroll will be enabled.
              *  CAVEAT: Android has precision error here from 4 decimal places, therefore we need to use Math.floor() to make sure the calculation is correct on Android.
              */
-            this.enabledAutoScrollToEnd = event.nativeEvent.contentOffset.y + this.props.threshold >= Math.floor(this.contentHeight - this.flatListHeight);
-            // User-defined onScroll event
-            const { onScroll } = this.props;
-            if (onScroll) {
-                onScroll(event);
-            }
+            this.setState({ enabledAutoScrollToEnd: event.nativeEvent.contentOffset.y + this.props.threshold >= Math.floor(this.contentHeight - this.flatListHeight) }, () => {
+                // User-defined onScroll event
+                const { onScroll } = this.props;
+                if (onScroll) {
+                    onScroll(event);
+                }
+            });
+        };
+        this.renderDefaultIndicatorComponent = () => (<View style={this.props.indicatorContainerStyle || styles.scrollToEndIndicator}>
+            <Triangle />
+        </View>);
+        this.state = {
+            enabledAutoScrollToEnd: true,
         };
     }
     render() {
-        const { contentContainerStyle, threshold, ...restProps } = this.props;
-        return <FlatList {...restProps} ref={this.listRef} contentContainerStyle={[styles.contentContainer, contentContainerStyle]} onLayout={this.onLayout} onContentSizeChange={this.onContentSizeChange} onScroll={this.onScroll}/>;
+        const { contentContainerStyle, threshold, showScrollToEndIndicator, newMessageAlertRenderer, indicatorContainerStyle, indicatorComponent, ...restProps } = this.props;
+        const { enabledAutoScrollToEnd } = this.state;
+        return (<View style={styles.container}>
+                <FlatList {...restProps} ref={this.listRef} contentContainerStyle={[styles.contentContainer, contentContainerStyle]} onLayout={this.onLayout} onContentSizeChange={this.onContentSizeChange} onScroll={this.onScroll}/>
+                {showScrollToEndIndicator && !enabledAutoScrollToEnd && <TouchableWithoutFeedback onPress={() => this.scrollToEnd()}>{indicatorComponent === undefined ? this.renderDefaultIndicatorComponent() : indicatorComponent}</TouchableWithoutFeedback>}
+            </View>);
     }
 }
 AutoScrollFlatList.defaultProps = {
@@ -93,10 +104,25 @@ AutoScrollFlatList.defaultProps = {
     showScrollToEndIndicator: true,
 };
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+    },
     contentContainer: {
         alignItems: "stretch",
         paddingVertical: 8,
         paddingHorizontal: 8,
+    },
+    scrollToEndIndicator: {
+        position: "absolute",
+        bottom: 20,
+        right: 20,
+        width: 30,
+        height: 30,
+        justifyContent: "center",
+        alignItems: "center",
+        borderWidth: 1,
+        borderColor: "#000000",
+        borderRadius: 5,
     },
 });
 //# sourceMappingURL=index.js.map

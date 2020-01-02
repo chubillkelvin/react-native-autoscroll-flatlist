@@ -1,5 +1,5 @@
 import React from "react";
-import { FlatListProps, StyleProp, TextStyle, ViewStyle } from "react-native";
+import { FlatListProps, StyleProp, ViewStyle } from "react-native";
 /**
  * An enhanced React Native <FlatList> component to provide auto-scrolling functionality.
  * Auto-scrolling will only be enabled if:
@@ -12,14 +12,17 @@ interface Props<T> extends FlatListProps<T> {
     showScrollToEndIndicator: boolean;
     newMessageAlertRenderer?: (newMessageCount: number) => string;
     indicatorContainerStyle?: StyleProp<ViewStyle>;
-    indicatorTextStyle?: StyleProp<TextStyle>;
+    indicatorComponent?: React.ComponentType<any> | React.ReactElement | null;
 }
-export default class AutoScrollFlatList<T> extends React.PureComponent<Props<T>> {
+interface State {
+    enabledAutoScrollToEnd: boolean;
+}
+export default class AutoScrollFlatList<T> extends React.PureComponent<Props<T>, State> {
     static defaultProps: Pick<Props<any>, "threshold" | "showScrollToEndIndicator">;
+    constructor(props: Props<T>);
     private readonly listRef;
     private flatListHeight;
     private contentHeight;
-    private enabledAutoScrollToEnd;
     /**
      *  Exposing FlatList Methods To AutoScrollFlatList's Ref
      */
@@ -55,6 +58,7 @@ export default class AutoScrollFlatList<T> extends React.PureComponent<Props<T>>
     private onLayout;
     private onContentSizeChange;
     private onScroll;
+    private renderDefaultIndicatorComponent;
     render(): JSX.Element;
 }
 export {};
