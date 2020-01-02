@@ -1,5 +1,6 @@
 import React from "react";
-import {FlatList, FlatListProps, LayoutChangeEvent, NativeScrollEvent, NativeSyntheticEvent, StyleProp, StyleSheet, TextStyle, ViewStyle} from "react-native";
+import {FlatList, FlatListProps, LayoutChangeEvent, NativeScrollEvent, NativeSyntheticEvent, StyleProp, StyleSheet, TouchableWithoutFeedback, View, ViewStyle} from "react-native";
+import Triangle from "./Triangle";
 
 /**
  * An enhanced React Native <FlatList> component to provide auto-scrolling functionality.
@@ -11,11 +12,10 @@ import {FlatList, FlatListProps, LayoutChangeEvent, NativeScrollEvent, NativeSyn
 
 interface Props<T> extends FlatListProps<T> {
     threshold: number;
-    // TODO: render a {position: absolute} indicator if enabledAutoScrollToEnd is false
     showScrollToEndIndicator: boolean;
-    newMessageAlertRenderer?: (newMessageCount: number) => string;
+    newMessageAlertRenderer?: (newMessageCount: number) => string; // TODO
     indicatorContainerStyle?: StyleProp<ViewStyle>;
-    indicatorTextStyle?: StyleProp<TextStyle>;
+    indicatorComponent?: React.ComponentType<any> | React.ReactElement | null;
 }
 
 export default class AutoScrollFlatList<T> extends React.PureComponent<Props<T>> {
@@ -120,16 +120,42 @@ export default class AutoScrollFlatList<T> extends React.PureComponent<Props<T>>
         }
     };
 
+    private renderDefaultIndicatorComponent = () => (
+        <View style={this.props.indicatorContainerStyle || styles.scrollToEndIndicator}>
+            <Triangle />
+        </View>
+    );
+
     render() {
-        const {contentContainerStyle, threshold, ...restProps} = this.props;
-        return <FlatList {...restProps} ref={this.listRef} contentContainerStyle={[styles.contentContainer, contentContainerStyle]} onLayout={this.onLayout} onContentSizeChange={this.onContentSizeChange} onScroll={this.onScroll} />;
+        const {contentContainerStyle, threshold, showScrollToEndIndicator, newMessageAlertRenderer, indicatorContainerStyle, indicatorComponent, ...restProps} = this.props;
+        return (
+            <View style={styles.container}>
+                <FlatList {...restProps} ref={this.listRef} contentContainerStyle={[styles.contentContainer, contentContainerStyle]} onLayout={this.onLayout} onContentSizeChange={this.onContentSizeChange} onScroll={this.onScroll} />
+                {showScrollToEndIndicator && !this.enabledAutoScrollToEnd && <TouchableWithoutFeedback onPress={() => this.scrollToEnd()}>{indicatorComponent === undefined ? this.renderDefaultIndicatorComponent() : indicatorComponent}</TouchableWithoutFeedback>}
+            </View>
+        );
     }
 }
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+    },
     contentContainer: {
         alignItems: "stretch",
         paddingVertical: 8,
         paddingHorizontal: 8,
+    },
+    scrollToEndIndicator: {
+        position: "absolute",
+        bottom: 20,
+        right: 20,
+        width: 30,
+        height: 30,
+        justifyContent: "center",
+        alignItems: "center",
+        borderWidth: 1,
+        borderColor: "#000000",
+        borderRadius: 5,
     },
 });
