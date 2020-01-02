@@ -29,9 +29,12 @@ yarn add react-native-autoscroll-flatlist
 
 This component extends the official [`FlatListProps`](https://facebook.github.io/react-native/docs/flatlist) with the following additional props:
 
-| Prop      | Type   | Required | Default value | Description                                        |
-| --------- | ------ | -------- | ------------- | -------------------------------------------------- |
-| threshold | number | No       | 0             | Distance from end of list to enable auto-scrolling |
+| Prop                     | Type                                               | Required | Default value | Description                                                                   |
+| ------------------------ | -------------------------------------------------- | -------- | ------------- | ----------------------------------------------------------------------------- |
+| threshold                | number                                             | No       | 0             | Distance from end of list to enable auto-scrolling.                            |
+| showScrollToEndIndicator | boolean                                            | No       | true          | Whether to show an indicator to scroll to end.                                 |
+| indicatorContainerStyle  | StyleProp<ViewStyle>                               | No       | see code      | The style for container of the indicator. Best to use with position absolute. |
+| indicatorComponent       | React.ComponentType<any>, React.ReactElement, null | No       | see code      | The indicator itself. There is a default provided. See code for details.      |
 
 # Example Usage
 
