@@ -23,6 +23,7 @@ export default class AutoScrollFlatList<T> extends React.PureComponent<Props<T>,
     private readonly listRef;
     private flatListHeight;
     private contentHeight;
+    private scrollTop;
     /**
      *  Exposing FlatList Methods To AutoScrollFlatList's Ref
      */

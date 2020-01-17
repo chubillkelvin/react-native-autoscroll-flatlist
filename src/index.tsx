@@ -38,9 +38,7 @@ export default class AutoScrollFlatList<T> extends React.PureComponent<Props<T>,
     private readonly listRef: React.RefObject<FlatList<T>> = React.createRef();
     private flatListHeight: number = 0;
     private contentHeight: number = 0;
-
-    // TODO: use componentDidUpdate, then compare data.length < prevData.length to trigger scroll or show newMessageAlert, to replace onContentSizeChange?
-    // TODO: I think it's better because onContentSizeChange not necessarily means should scroll. discuss.
+    private scrollTop: number = 0;
 
     /**
      *  Exposing FlatList Methods To AutoScrollFlatList's Ref
@@ -121,7 +119,11 @@ export default class AutoScrollFlatList<T> extends React.PureComponent<Props<T>,
          *  Default behavior: if scrollTop is at the end of <Flatlist>, autoscroll will be enabled.
          *  CAVEAT: Android has precision error here from 4 decimal places, therefore we need to use Math.floor() to make sure the calculation is correct on Android.
          */
-        this.setState({enabledAutoScrollToEnd: event.nativeEvent.contentOffset.y + this.props.threshold >= Math.floor(this.contentHeight - this.flatListHeight)}, () => {
+        const prevScrollTop = this.scrollTop;
+        this.scrollTop = this.props.horizontal ? event.nativeEvent.contentOffset.x : event.nativeEvent.contentOffset.y;
+        const isScrollingDown = prevScrollTop <= this.scrollTop;
+        const isEndOfList = this.scrollTop + this.props.threshold >= Math.floor(this.contentHeight - this.flatListHeight);
+        this.setState({enabledAutoScrollToEnd: (this.state.enabledAutoScrollToEnd && isScrollingDown) || isEndOfList}, () => {
             // User-defined onScroll event
             const {onScroll} = this.props;
             if (onScroll) {
