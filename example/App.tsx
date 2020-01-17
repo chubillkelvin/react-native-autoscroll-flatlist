@@ -55,7 +55,7 @@ export default class App extends React.PureComponent<Props, State> {
                 color: Colors[Math.floor(Math.random() * Object.keys(Colors).length)],
             });
             this.setState({messages: newMessages});
-        }, 500);
+        }, 1000);
     }
 
     componentWillUnmount() {
