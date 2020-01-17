@@ -86,13 +86,9 @@ export default class AutoScrollFlatList extends React.PureComponent {
                 }
             });
         };
-        this.renderDefaultIndicatorComponent = () => {
-            const { indicatorComponent, indicatorContainerStyle } = this.props;
-            const containerStyle = indicatorComponent ? indicatorContainerStyle : indicatorContainerStyle ?? styles.scrollToEndIndicator;
-            return (<View style={containerStyle}>
-                <Triangle />
-            </View>);
-        };
+        this.renderDefaultIndicatorComponent = () => (<View style={this.props.indicatorContainerStyle ?? styles.scrollToEndIndicator}>
+            <Triangle />
+        </View>);
         this.state = {
             enabledAutoScrollToEnd: true,
         };
