@@ -27,22 +27,22 @@
     "build": "node ./scripts/build.js"
   },
   "peerDependencies": {
-    "react": "^16.10.0",
-    "react-native": "^0.60.0"
+    "react": "16.12.0",
+    "react-native": "0.61.5"
   },
   "devDependencies": {
-    "@types/react": "*",
-    "@types/react-native": "^0.60.0",
+    "@types/react": "16.9.17",
+    "@types/react-native": "0.60.31",
     "fs-extra": "8.1.0",
-    "react": "^16.10.0",
-    "react-native": "^0.60.0",
-    "react-native-scripts-ts": "1.7.0",
-    "react-native-typescript-transformer": "^1.1.4",
-    "tslib": "^1.7.1",
-    "typescript": "3.5.3",
-    "tslint": "5.20.0",
+    "prettier": "1.19.1",
+    "react": "16.12.0",
+    "react-native": "0.61.5",
+    "react-native-scripts-ts": "1.15.0",
+    "react-native-typescript-transformer": "1.2.13",
+    "tslib": "1.10.0",
+    "tslint": "5.20.1",
     "tslint-react": "4.1.0",
-    "prettier": "1.18.2"
+    "typescript": "3.7.5"
   },
   "types": "index.d.ts"
 }

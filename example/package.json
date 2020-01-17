@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "prepare": "cd ios && pod install && cd ..",
+    "prepare": "cd ios && pod install && cd ../android && yarn jetify && ./gradlew clean",
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "format": "prettier --config prettier.json --write \"*.{ts,tsx,css}\"",
@@ -11,21 +11,21 @@
     "build": "tsc"
   },
   "dependencies": {
-    "react": "16.11.0",
-    "react-native": "0.61.2",
-    "react-native-autoscroll-flatlist": "1.5.0"
+    "react": "16.12.0",
+    "react-native": "0.61.5",
+    "react-native-autoscroll-flatlist": "1.5.1"
   },
   "devDependencies": {
-    "@types/react": "*",
-    "@types/react-native": "^0.60.0",
-    "react": "16.11.0",
-    "react-native": "0.61.2",
-    "react-native-scripts-ts": "1.7.0",
-    "react-native-typescript-transformer": "^1.1.4",
-    "tslib": "^1.7.1",
-    "typescript": "3.5.3",
-    "tslint": "5.20.0",
+    "@types/react": "16.9.17",
+    "@types/react-native": "0.60.31",
+    "prettier": "1.19.1",
+    "react": "16.12.0",
+    "react-native": "0.61.5",
+    "react-native-scripts-ts": "1.15.0",
+    "react-native-typescript-transformer": "1.2.13",
+    "tslib": "1.10.0",
+    "tslint": "5.20.1",
     "tslint-react": "4.1.0",
-    "prettier": "1.18.2"
+    "typescript": "3.7.5"
   }
 }
