@@ -97,8 +97,8 @@ export default class AutoScrollFlatList extends React.PureComponent {
         const { contentContainerStyle, threshold, showScrollToEndIndicator, newMessageAlertRenderer, indicatorContainerStyle, indicatorComponent, ...restProps } = this.props;
         const { enabledAutoScrollToEnd } = this.state;
         return (<View style={styles.container}>
-                <FlatList {...restProps} ref={this.listRef} contentContainerStyle={[styles.contentContainer, contentContainerStyle]} onLayout={this.onLayout} onContentSizeChange={this.onContentSizeChange} onScroll={this.onScroll}/>
-                {showScrollToEndIndicator && !enabledAutoScrollToEnd && <TouchableWithoutFeedback onPress={() => this.scrollToEnd()}>{indicatorComponent === undefined ? this.renderDefaultIndicatorComponent() : indicatorComponent}</TouchableWithoutFeedback>}
+                <FlatList {...restProps} ref={this.listRef} contentContainerStyle={contentContainerStyle ?? styles.contentContainer} onLayout={this.onLayout} onContentSizeChange={this.onContentSizeChange} onScroll={this.onScroll}/>
+                {showScrollToEndIndicator && !enabledAutoScrollToEnd && <TouchableWithoutFeedback onPress={() => this.scrollToEnd()}>{indicatorComponent ?? this.renderDefaultIndicatorComponent()}</TouchableWithoutFeedback>}
             </View>);
     }
 }

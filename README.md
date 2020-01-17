@@ -7,7 +7,7 @@ An enhanced version of the original react-native `<FlatList>` component with bui
 
 This component enables auto-scrolling on new item added to the list - which works like any chat client.
 
-Now supports horizontal orientation as well in version newer than 1.6.0.
+Now supports landscape orientation as well in version newer than 1.6.0.
 
 # Demo
 
