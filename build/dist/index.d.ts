@@ -10,20 +10,23 @@ import { FlatListProps, StyleProp, ViewStyle } from "react-native";
 interface Props<T> extends FlatListProps<T> {
     threshold: number;
     showScrollToEndIndicator: boolean;
-    newMessageAlertRenderer?: (newMessageCount: number) => string;
+    showNewMessageAlert: boolean;
+    newMessageAlertComponent?: (newMessageCount: number) => React.ComponentType<any> | React.ReactElement;
     indicatorContainerStyle?: StyleProp<ViewStyle>;
     indicatorComponent?: React.ComponentType<any> | React.ReactElement | null;
 }
 interface State {
     enabledAutoScrollToEnd: boolean;
+    newMessageCount: number;
 }
 export default class AutoScrollFlatList<T> extends React.PureComponent<Props<T>, State> {
-    static defaultProps: Pick<Props<any>, "threshold" | "showScrollToEndIndicator">;
+    static defaultProps: Pick<Props<any>, "threshold" | "showScrollToEndIndicator" | "showNewMessageAlert">;
     constructor(props: Props<T>);
     private readonly listRef;
     private flatListHeight;
     private contentHeight;
     private scrollTop;
+    componentDidUpdate(prevProps: Readonly<Props<T>>, prevState: Readonly<State>): void;
     /**
      *  Exposing FlatList Methods To AutoScrollFlatList's Ref
      */
@@ -59,6 +62,7 @@ export default class AutoScrollFlatList<T> extends React.PureComponent<Props<T>,
     private onLayout;
     private onContentSizeChange;
     private onScroll;
+    private renderDefaultNewMessageAlertComponent;
     private renderDefaultIndicatorComponent;
     render(): JSX.Element;
 }
