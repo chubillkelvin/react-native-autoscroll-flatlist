@@ -148,7 +148,7 @@ export default class AutoScrollFlatList<T> extends React.PureComponent<Props<T>,
 
     private renderDefaultNewMessageAlertComponent = (newMessageCount: number) => (
         <View style={styles.newMessageAlert}>
-            <Text style={styles.alertMessage}>{`${newMessageCount} new messages`}</Text>
+            <Text style={styles.alertMessage}>{`${newMessageCount} new message${newMessageCount > 1 ? "s" : ""}`}</Text>
             <Triangle size={4} />
         </View>
     );
