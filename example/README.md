@@ -2,7 +2,7 @@
 
 ![demo](../demo.gif)
 
-This example is generated using the command from the [official RN docs](https://facebook.github.io/react-native/docs/getting-started):
+This example was generated initially using the command from the [official RN docs](https://facebook.github.io/react-native/docs/getting-started):
 
 ```
 npx react-native init AwesomeTSProject --template react-native-template-typescript
@@ -26,15 +26,18 @@ to test the project in an iOS emulator; or run
 yarn android
 ```
 
-to test the project in an Android emulator (you need to manually start the Android emulator first).
+to test the project in an Android emulator (you may need to manually start the Android emulator first).
 
 # Properties
 
 This component extends the official [`FlatListProps`](https://facebook.github.io/react-native/docs/flatlist) with the following additional props:
 
-| Prop      | Type   | Required | Default value | Description                                        |
-| --------- | ------ | -------- | ------------- | -------------------------------------------------- |
-| threshold | number | No       | 0             | Distance from end of list to enable auto-scrolling |
+| Prop                     | Type                                               | Required | Default value | Description                                                                   |
+| ------------------------ | -------------------------------------------------- | -------- | ------------- | ----------------------------------------------------------------------------- |
+| threshold                | number                                             | No       | 0             | Distance from end of list to enable auto-scrolling.                            |
+| showScrollToEndIndicator | boolean                                            | No       | true          | Whether to show an indicator to scroll to end.                                 |
+| indicatorContainerStyle  | StyleProp<ViewStyle>                               | No       | see code      | The style for container of the indicator. Best to use with position absolute. |
+| indicatorComponent       | React.ComponentType<any>, React.ReactElement, null | No       | see code      | The indicator itself. There is a default provided. See code for details.      |
 
 # Troubleshoot
 
