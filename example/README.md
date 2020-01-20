@@ -1,6 +1,6 @@
 # Example App for react-native-autoscroll-flatlist
 
-![demo](../demo.gif)
+![demo](https://github.com/RageBill/react-native-autoscroll-flatlist/blob/master/demo/autoscroll.gif?raw=true)
 
 This example was generated initially using the command from the [official RN docs](https://facebook.github.io/react-native/docs/getting-started):
 
