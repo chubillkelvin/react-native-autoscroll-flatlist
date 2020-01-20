@@ -109,11 +109,11 @@ export default class AutoScrollFlatList extends React.PureComponent {
         }
     }
     render() {
-        const { contentContainerStyle, threshold, showScrollToEndIndicator, showNewMessageAlert, newMessageAlertComponent, indicatorContainerStyle, indicatorComponent, ...restProps } = this.props;
+        const { contentContainerStyle, threshold, showScrollToEndIndicator, showNewMessageAlert, newMessageAlertRenderer, indicatorContainerStyle, indicatorComponent, ...restProps } = this.props;
         const { enabledAutoScrollToEnd, newMessageCount } = this.state;
         return (<View style={styles.container}>
                 <FlatList {...restProps} ref={this.listRef} contentContainerStyle={contentContainerStyle ?? styles.contentContainer} onLayout={this.onLayout} onContentSizeChange={this.onContentSizeChange} onScroll={this.onScroll}/>
-                {showNewMessageAlert && !enabledAutoScrollToEnd && newMessageCount > 0 && (<TouchableWithoutFeedback onPress={() => this.scrollToEnd()}>{newMessageAlertComponent ? newMessageAlertComponent(newMessageCount) : this.renderDefaultNewMessageAlertComponent(newMessageCount)}</TouchableWithoutFeedback>)}
+                {showNewMessageAlert && !enabledAutoScrollToEnd && newMessageCount > 0 && (<TouchableWithoutFeedback onPress={() => this.scrollToEnd()}>{newMessageAlertRenderer ? newMessageAlertRenderer(newMessageCount) : this.renderDefaultNewMessageAlertComponent(newMessageCount)}</TouchableWithoutFeedback>)}
                 {showScrollToEndIndicator && !enabledAutoScrollToEnd && <TouchableWithoutFeedback onPress={() => this.scrollToEnd()}>{indicatorComponent ?? this.renderDefaultIndicatorComponent()}</TouchableWithoutFeedback>}
             </View>);
     }
@@ -159,4 +159,5 @@ const styles = StyleSheet.create({
         marginRight: 4,
     },
 });
+export { Triangle };
 //# sourceMappingURL=index.js.map
