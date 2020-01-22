@@ -12,7 +12,7 @@ interface Props<T> extends FlatListProps<T> {
     threshold: number;
     showScrollToEndIndicator: boolean;
     showNewMessageAlert: boolean;
-    newMessageAlertRenderer?: (newMessageCount: number, translateY?: Animated.Value) => React.ComponentType<any> | React.ReactElement;
+    newMessageAlertRenderer?: (newMessageCount: number, translateY: Animated.Value) => React.ComponentType<any> | React.ReactElement;
     indicatorContainerStyle?: StyleProp<ViewStyle>;
     indicatorComponent?: React.ComponentType<any> | React.ReactElement | null;
 }
