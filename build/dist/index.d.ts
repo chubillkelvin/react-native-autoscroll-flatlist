@@ -1,5 +1,5 @@
 import React from "react";
-import { FlatListProps, StyleProp, ViewStyle } from "react-native";
+import { Animated, FlatListProps, StyleProp, ViewStyle } from "react-native";
 import Triangle from "./Triangle";
 /**
  * An enhanced React Native <FlatList> component to provide auto-scrolling functionality.
@@ -12,13 +12,14 @@ interface Props<T> extends FlatListProps<T> {
     threshold: number;
     showScrollToEndIndicator: boolean;
     showNewMessageAlert: boolean;
-    newMessageAlertRenderer?: (newMessageCount: number) => React.ComponentType<any> | React.ReactElement;
+    newMessageAlertRenderer?: (newMessageCount: number, translateY?: Animated.Value) => React.ComponentType<any> | React.ReactElement;
     indicatorContainerStyle?: StyleProp<ViewStyle>;
     indicatorComponent?: React.ComponentType<any> | React.ReactElement | null;
 }
 interface State {
     enabledAutoScrollToEnd: boolean;
     newMessageCount: number;
+    messageAlertY: Animated.Value;
 }
 export default class AutoScrollFlatList<T> extends React.PureComponent<Props<T>, State> {
     static defaultProps: Pick<Props<any>, "threshold" | "showScrollToEndIndicator" | "showNewMessageAlert">;

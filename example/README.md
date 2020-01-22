@@ -32,14 +32,14 @@ to test the project in an Android emulator (you may need to manually start the A
 
 This component extends the official [`FlatListProps`](https://facebook.github.io/react-native/docs/flatlist) with the following additional props:
 
-| Prop                     | Type                                                                            | Required | Default value | Description                                                                       |
-| ------------------------ | ------------------------------------------------------------------------------- | -------- | ------------- | --------------------------------------------------------------------------------- |
-| threshold                | number                                                                          | No       | 0             | Distance from end of list to enable auto-scrolling.                               |
-| showScrollToEndIndicator | boolean                                                                         | No       | true          | Whether to show an indicator to scroll to end.                                    |
-| showNewMessageAlert      | boolean                                                                         | No       | true          | Whether to show new message alert when auto-scrolling is temporarily disabled.    |
-| newMessageAlertRenderer  | (newMessageCount: number) => React.ComponentType<any> &#124; React.ReactElement | No       | true          | The component that indicates number of new messages. Best with position absolute. |
-| indicatorContainerStyle  | StyleProp<ViewStyle>                                                            | No       | see code      | The style for container of the indicator. Best with position absolute.            |
-| indicatorComponent       | React.ComponentType<any> &#124; React.ReactElement &#124; null                  | No       | see code      | The indicator itself. There is a default provided. See code for details.          |
+| Prop                     | Type                                                                                                         | Required | Default value | Description                                                                       |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------ | -------- | ------------- | --------------------------------------------------------------------------------- |
+| threshold                | number                                                                                                       | No       | 0             | Distance from end of list to enable auto-scrolling.                               |
+| showScrollToEndIndicator | boolean                                                                                                      | No       | true          | Whether to show an indicator to scroll to end.                                    |
+| showNewMessageAlert      | boolean                                                                                                      | No       | true          | Whether to show new message alert when auto-scrolling is temporarily disabled.    |
+| newMessageAlertRenderer  | (newMessageCount: number, translateY?: Animated.Value) => React.ComponentType<any> &#124; React.ReactElement | No       | true          | The component that indicates number of new messages. Best with position absolute. |
+| indicatorContainerStyle  | StyleProp<ViewStyle>                                                                                         | No       | see code      | The style for container of the indicator. Best with position absolute.            |
+| indicatorComponent       | React.ComponentType<any> &#124; React.ReactElement &#124; null                                               | No       | see code      | The indicator itself. There is a default provided. See code for details.          |
 
 # Troubleshoot
 

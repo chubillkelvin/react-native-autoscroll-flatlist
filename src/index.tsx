@@ -1,5 +1,5 @@
 import React from "react";
-import {FlatList, FlatListProps, LayoutChangeEvent, NativeScrollEvent, NativeSyntheticEvent, StyleProp, StyleSheet, Text, TouchableWithoutFeedback, View, ViewStyle} from "react-native";
+import {Animated, FlatList, FlatListProps, LayoutChangeEvent, NativeScrollEvent, NativeSyntheticEvent, StyleProp, StyleSheet, Text, TouchableWithoutFeedback, View, ViewStyle} from "react-native";
 import Triangle from "./Triangle";
 
 /**
@@ -14,7 +14,7 @@ interface Props<T> extends FlatListProps<T> {
     threshold: number;
     showScrollToEndIndicator: boolean;
     showNewMessageAlert: boolean;
-    newMessageAlertRenderer?: (newMessageCount: number) => React.ComponentType<any> | React.ReactElement;
+    newMessageAlertRenderer?: (newMessageCount: number, translateY?: Animated.Value) => React.ComponentType<any> | React.ReactElement;
     indicatorContainerStyle?: StyleProp<ViewStyle>;
     indicatorComponent?: React.ComponentType<any> | React.ReactElement | null;
 }
@@ -22,6 +22,7 @@ interface Props<T> extends FlatListProps<T> {
 interface State {
     enabledAutoScrollToEnd: boolean;
     newMessageCount: number;
+    messageAlertY: Animated.Value;
 }
 
 export default class AutoScrollFlatList<T> extends React.PureComponent<Props<T>, State> {
@@ -36,6 +37,7 @@ export default class AutoScrollFlatList<T> extends React.PureComponent<Props<T>,
         this.state = {
             enabledAutoScrollToEnd: true,
             newMessageCount: 0,
+            messageAlertY: new Animated.Value(0),
         };
     }
 
@@ -46,9 +48,17 @@ export default class AutoScrollFlatList<T> extends React.PureComponent<Props<T>,
 
     componentDidUpdate(prevProps: Readonly<Props<T>>, prevState: Readonly<State>) {
         const {data} = this.props;
-        const {enabledAutoScrollToEnd, newMessageCount} = this.state;
+        const {enabledAutoScrollToEnd, newMessageCount, messageAlertY} = this.state;
         if (!enabledAutoScrollToEnd && data && prevProps.data && data.length !== prevProps.data.length) {
-            this.setState({newMessageCount: prevState.newMessageCount + data.length - prevProps.data.length});
+            const newCount = prevState.newMessageCount + data.length - prevProps.data.length;
+            this.setState({newMessageCount: newCount});
+            if (newCount === 1) {
+                messageAlertY.setValue(-30);
+                Animated.timing(messageAlertY, {
+                    toValue: 10,
+                    duration: 250,
+                }).start();
+            }
         } else if (enabledAutoScrollToEnd && newMessageCount) {
             this.setState({newMessageCount: 0});
         }
@@ -59,6 +69,7 @@ export default class AutoScrollFlatList<T> extends React.PureComponent<Props<T>,
      */
 
     scrollToEnd = (params: {animated: boolean} = {animated: true}) => {
+        this.setState({newMessageCount: 0});
         this.scrollToOffset({offset: this.contentHeight - this.flatListHeight, animated: params.animated});
     };
 
@@ -146,11 +157,11 @@ export default class AutoScrollFlatList<T> extends React.PureComponent<Props<T>,
         });
     };
 
-    private renderDefaultNewMessageAlertComponent = (newMessageCount: number) => (
-        <View style={styles.newMessageAlert}>
+    private renderDefaultNewMessageAlertComponent = (newMessageCount: number, translateY: Animated.Value) => (
+        <Animated.View style={[styles.newMessageAlert, {transform: [{translateY}]}]}>
             <Text style={styles.alertMessage}>{`${newMessageCount} new message${newMessageCount > 1 ? "s" : ""}`}</Text>
             <Triangle size={4} />
-        </View>
+        </Animated.View>
     );
 
     private renderDefaultIndicatorComponent = () => (
@@ -161,12 +172,12 @@ export default class AutoScrollFlatList<T> extends React.PureComponent<Props<T>,
 
     render() {
         const {contentContainerStyle, threshold, showScrollToEndIndicator, showNewMessageAlert, newMessageAlertRenderer, indicatorContainerStyle, indicatorComponent, ...restProps} = this.props;
-        const {enabledAutoScrollToEnd, newMessageCount} = this.state;
+        const {enabledAutoScrollToEnd, newMessageCount, messageAlertY} = this.state;
         return (
             <View style={styles.container}>
                 <FlatList {...restProps} ref={this.listRef} contentContainerStyle={contentContainerStyle ?? styles.contentContainer} onLayout={this.onLayout} onContentSizeChange={this.onContentSizeChange} onScroll={this.onScroll} />
                 {showNewMessageAlert && !enabledAutoScrollToEnd && newMessageCount > 0 && (
-                    <TouchableWithoutFeedback onPress={() => this.scrollToEnd()}>{newMessageAlertRenderer ? newMessageAlertRenderer(newMessageCount) : this.renderDefaultNewMessageAlertComponent(newMessageCount)}</TouchableWithoutFeedback>
+                    <TouchableWithoutFeedback onPress={() => this.scrollToEnd()}>{newMessageAlertRenderer ? newMessageAlertRenderer(newMessageCount, messageAlertY) : this.renderDefaultNewMessageAlertComponent(newMessageCount, messageAlertY)}</TouchableWithoutFeedback>
                 )}
                 {showScrollToEndIndicator && !enabledAutoScrollToEnd && <TouchableWithoutFeedback onPress={() => this.scrollToEnd()}>{indicatorComponent ?? this.renderDefaultIndicatorComponent()}</TouchableWithoutFeedback>}
             </View>
@@ -177,6 +188,7 @@ export default class AutoScrollFlatList<T> extends React.PureComponent<Props<T>,
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        overflow: "hidden",
     },
     contentContainer: {
         alignItems: "stretch",
@@ -185,8 +197,8 @@ const styles = StyleSheet.create({
     },
     scrollToEndIndicator: {
         position: "absolute",
-        bottom: 20,
         right: 20,
+        bottom: 20,
         width: 30,
         height: 30,
         justifyContent: "center",
@@ -194,17 +206,19 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: "#000000",
         borderRadius: 5,
+        backgroundColor: "#ffffff",
     },
     newMessageAlert: {
         position: "absolute",
         alignSelf: "center",
         flexDirection: "row",
         alignItems: "center",
-        top: 10,
+        borderRadius: 10,
         borderWidth: StyleSheet.hairlineWidth,
         borderColor: "#000000",
+        backgroundColor: "#ffffff",
         paddingVertical: 3,
-        paddingHorizontal: 6,
+        paddingHorizontal: 8,
     },
     alertMessage: {
         marginRight: 4,
