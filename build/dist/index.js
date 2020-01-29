@@ -45,6 +45,7 @@ export default class AutoScrollFlatList extends React.PureComponent {
                 return this.listRef.current.getMetrics();
             }
         };
+        this.isAutoScrolling = () => this.state.enabledAutoScrollToEnd;
         /**
          * End of Exposed Methods
          */

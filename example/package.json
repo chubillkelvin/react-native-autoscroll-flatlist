@@ -13,11 +13,11 @@
   "dependencies": {
     "react": "16.12.0",
     "react-native": "0.61.5",
-    "react-native-autoscroll-flatlist": "1.7.3"
+    "react-native-autoscroll-flatlist": "1.7.4"
   },
   "devDependencies": {
-    "@types/react": "16.9.17",
-    "@types/react-native": "0.60.31",
+    "@types/react": "16.9.19",
+    "@types/react-native": "0.61.7",
     "prettier": "1.19.1",
     "react": "16.12.0",
     "react-native": "0.61.5",

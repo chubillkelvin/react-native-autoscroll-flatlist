@@ -41,9 +41,32 @@ This component extends the official [`FlatListProps`](https://facebook.github.io
 | indicatorContainerStyle  | StyleProp<ViewStyle>                                                                                         | No       | see code      | The style for container of the indicator. Best with position absolute.            |
 | indicatorComponent       | React.ComponentType<any> &#124; React.ReactElement &#124; null                                               | No       | see code      | The indicator itself. There is a default provided. See code for details.          |
 
+# Methods
+
+Below is the list of available methods you can call via `ref`:
+
+| Method                | Parameters                                                                              | Description                                                                                      |
+| --------------------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | 
+| scrollToEnd           | params: {animated: boolean} = {animated: true}                                          | Set `newMessageCount` (an internal state) to 0 and then trigger `scrollToOffset` to end of page. |
+| scrollToIndex         | params: {index: number; viewOffset?: number; viewPosition?: number; animated?: boolean} | same as [doc](https://facebook.github.io/react-native/docs/flatlist)                             | 
+| scrollToItem          | params: {item: T; viewPosition?: number; animated: boolean}                             | same as [doc](https://facebook.github.io/react-native/docs/flatlist)                             | 
+| scrollToOffset        | params: {offset: number; animated?: boolean}                                            | same as [doc](https://facebook.github.io/react-native/docs/flatlist)                             | 
+| recordInteraction     |                                                                                         | same as [doc](https://facebook.github.io/react-native/docs/flatlist)                             | 
+| flashScrollIndicators |                                                                                         | same as [doc](https://facebook.github.io/react-native/docs/flatlist)                             |
+| getMetrics            |                                                                                         | same as [doc](https://facebook.github.io/react-native/docs/flatlist)                             | 
+| isAutoScrolling       |                                                                                         | Returns whether auto-scrolling (boolean) is in effect.                                           | 
+
 # Troubleshoot
 
-Q: I have an error running the Android app!
+### Q: I have an error running `yarn prepare` after `yarn install`!
+
+A: Please make sure you have `Xcode` and [`Cocoapods`](https://guides.cocoapods.org/using/getting-started.html) installed properly.
+
+You may temporarily remove this step if you do not have iOS simulator and/or Android simulator installed.
+
+This will not affect working with the code.
+
+### Q: I have an error running the Android app!
 
 A: Try to run
 

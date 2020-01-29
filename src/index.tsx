@@ -109,6 +109,8 @@ export default class AutoScrollFlatList<T> extends React.PureComponent<Props<T>,
         }
     };
 
+    isAutoScrolling = () => this.state.enabledAutoScrollToEnd;
+
     /**
      * End of Exposed Methods
      */

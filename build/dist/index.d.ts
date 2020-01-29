@@ -58,6 +58,7 @@ export default class AutoScrollFlatList<T> extends React.PureComponent<Props<T>,
         renderedRows: number;
         visibleRows: number;
     } | undefined;
+    isAutoScrolling: () => boolean;
     /**
      * End of Exposed Methods
      */
