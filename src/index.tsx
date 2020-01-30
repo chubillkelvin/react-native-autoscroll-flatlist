@@ -1,5 +1,5 @@
 import React from "react";
-import {Animated, FlatList, FlatListProps, LayoutChangeEvent, NativeScrollEvent, NativeSyntheticEvent, StyleProp, StyleSheet, Text, TouchableWithoutFeedback, View, ViewStyle} from "react-native";
+import {Animated, FlatList, FlatListProps, LayoutChangeEvent, NativeScrollEvent, NativeSyntheticEvent, ScrollViewComponent, StyleProp, StyleSheet, Text, TouchableWithoutFeedback, View, ViewStyle} from "react-native";
 import Triangle from "./Triangle";
 
 /**
@@ -103,9 +103,21 @@ export default class AutoScrollFlatList<T> extends React.PureComponent<Props<T>,
         }
     };
 
-    getMetrics = () => {
+    getScrollableNode = (): any => {
         if (this.listRef.current) {
-            return this.listRef.current.getMetrics();
+            return this.listRef.current.getScrollableNode();
+        }
+    };
+
+    getNativeScrollRef = (): React.RefObject<View> | React.RefObject<ScrollViewComponent> | null | undefined => {
+        if (this.listRef.current) {
+            return this.listRef.current.getNativeScrollRef();
+        }
+    };
+
+    getScrollResponder = (): JSX.Element | null | undefined => {
+        if (this.listRef.current) {
+            return this.listRef.current.getScrollResponder();
         }
     };
 

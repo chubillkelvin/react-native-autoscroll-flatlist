@@ -40,9 +40,19 @@ export default class AutoScrollFlatList extends React.PureComponent {
                 this.listRef.current.flashScrollIndicators();
             }
         };
-        this.getMetrics = () => {
+        this.getScrollableNode = () => {
             if (this.listRef.current) {
-                return this.listRef.current.getMetrics();
+                return this.listRef.current.getScrollableNode();
+            }
+        };
+        this.getNativeScrollRef = () => {
+            if (this.listRef.current) {
+                return this.listRef.current.getNativeScrollRef();
+            }
+        };
+        this.getScrollResponder = () => {
+            if (this.listRef.current) {
+                return this.listRef.current.getScrollResponder();
             }
         };
         this.isAutoScrolling = () => this.state.enabledAutoScrollToEnd;

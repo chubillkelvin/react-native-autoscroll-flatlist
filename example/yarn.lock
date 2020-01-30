@@ -1019,10 +1019,10 @@
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.3.tgz#2ab0d5da2e5815f94b0b9d4b95d1e5f243ab2ca7"
   integrity sha512-KfRL3PuHmqQLOG+2tGpRO26Ctg+Cq1E01D2DMriKEATHgWLfeNDmq9e29Q9WIky0dQ3NPkd1mzYH8Lm936Z9qw==
 
-"@types/react-native@0.61.7":
-  version "0.61.7"
-  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.61.7.tgz#e0315b5f627d61470c7f58d7298e732aab90b2c5"
-  integrity sha512-LUhIiZUfGA0+2+/+KeHDpHfBmVYZdw1vwikYF2yTap5duuXtw3SUYn6kiPyBwFf++PmhWJeGeId94vAYbptvaw==
+"@types/react-native@0.61.8":
+  version "0.61.8"
+  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.61.8.tgz#22b7b2744de913a02965cdd4954aa92a216249ad"
+  integrity sha512-+DhnibUO3W/fV3j+YFZkwGUblrc0cc3UmG4boMZIi6Ox8hRI67vs0aFQQUJG9c6yzH8vksyd+MigLwca18axzw==
   dependencies:
     "@types/react" "*"
 
@@ -5278,10 +5278,10 @@ react-lifecycles-compat@^3.0.0:
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
 
-react-native-autoscroll-flatlist@1.7.4:
-  version "1.7.4"
-  resolved "https://registry.yarnpkg.com/react-native-autoscroll-flatlist/-/react-native-autoscroll-flatlist-1.7.4.tgz#2e63cbdb04b56c6cc0a5d5529ff799cdf2003ed9"
-  integrity sha512-MH8EZUJfFMhMxetLTy7GBpmRnXqKlCalU+CoMTVO5G+mRu30reDX/zu2nrUzAwtqm0fApvEOzOpkBc3QHpuPjg==
+react-native-autoscroll-flatlist@1.7.5:
+  version "1.7.5"
+  resolved "https://registry.yarnpkg.com/react-native-autoscroll-flatlist/-/react-native-autoscroll-flatlist-1.7.5.tgz#82f8c7b61c8f6d47b6a8735da7c85fd894c8dc73"
+  integrity sha512-igFzByD1jhm3MrWn3Up01eJltNanM+05zUdkJbRIgZFzM+W1fbNiD4h74Ajlfy5bTMsrkNrqdOSunETxV5ACsw==
 
 react-native-scripts-ts@1.15.0:
   version "1.15.0"

@@ -1,5 +1,5 @@
 import React from "react";
-import { Animated, FlatListProps, StyleProp, ViewStyle } from "react-native";
+import { Animated, FlatListProps, ScrollViewComponent, StyleProp, View, ViewStyle } from "react-native";
 import Triangle from "./Triangle";
 /**
  * An enhanced React Native <FlatList> component to provide auto-scrolling functionality.
@@ -52,12 +52,9 @@ export default class AutoScrollFlatList<T> extends React.PureComponent<Props<T>,
     }) => void;
     recordInteraction: () => void;
     flashScrollIndicators: () => void;
-    getMetrics: () => {
-        contentLength: number;
-        totalRows: number;
-        renderedRows: number;
-        visibleRows: number;
-    } | undefined;
+    getScrollableNode: () => any;
+    getNativeScrollRef: () => React.RefObject<View> | React.RefObject<ScrollViewComponent> | null | undefined;
+    getScrollResponder: () => JSX.Element | null | undefined;
     isAutoScrolling: () => boolean;
     /**
      * End of Exposed Methods
