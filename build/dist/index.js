@@ -12,7 +12,7 @@ export default class AutoScrollFlatList extends React.PureComponent {
          *  Exposing FlatList Methods To AutoScrollFlatList's Ref
          */
         this.scrollToEnd = (params = { animated: true }) => {
-            this.setState({ newMessageCount: 0 });
+            this.setState({ newItemCount: 0 });
             this.scrollToOffset({ offset: this.contentHeight - this.flatListHeight, animated: params.animated });
         };
         this.scrollToIndex = (params) => {
@@ -98,8 +98,8 @@ export default class AutoScrollFlatList extends React.PureComponent {
                 }
             });
         };
-        this.renderDefaultNewMessageAlertComponent = (newMessageCount, translateY) => (<Animated.View style={[styles.newMessageAlert, { transform: [{ translateY }] }]}>
-            <Text style={styles.alertMessage}>{`${newMessageCount} new message${newMessageCount > 1 ? "s" : ""}`}</Text>
+        this.renderDefaultNewItemAlertComponent = (newItemCount, translateY) => (<Animated.View style={[styles.newItemAlert, { transform: [{ translateY }] }]}>
+            <Text style={styles.alertMessage}>{`${newItemCount} new item${newItemCount > 1 ? "s" : ""}`}</Text>
             <Triangle size={4}/>
         </Animated.View>);
         this.renderDefaultIndicatorComponent = () => (<View style={this.props.indicatorContainerStyle ?? styles.scrollToEndIndicator}>
@@ -107,34 +107,34 @@ export default class AutoScrollFlatList extends React.PureComponent {
         </View>);
         this.state = {
             enabledAutoScrollToEnd: true,
-            newMessageCount: 0,
-            messageAlertY: new Animated.Value(0),
+            newItemCount: 0,
+            alertY: new Animated.Value(0),
         };
     }
     componentDidUpdate(prevProps, prevState) {
         const { data } = this.props;
-        const { enabledAutoScrollToEnd, newMessageCount, messageAlertY } = this.state;
+        const { enabledAutoScrollToEnd, newItemCount, alertY } = this.state;
         if (!enabledAutoScrollToEnd && data && prevProps.data && data.length !== prevProps.data.length) {
-            const newCount = prevState.newMessageCount + data.length - prevProps.data.length;
-            this.setState({ newMessageCount: newCount });
+            const newCount = prevState.newItemCount + data.length - prevProps.data.length;
+            this.setState({ newItemCount: newCount });
             if (newCount === 1) {
-                messageAlertY.setValue(-30);
-                Animated.timing(messageAlertY, {
+                alertY.setValue(-30);
+                Animated.timing(alertY, {
                     toValue: 10,
                     duration: 250,
                 }).start();
             }
         }
-        else if (enabledAutoScrollToEnd && newMessageCount) {
-            this.setState({ newMessageCount: 0 });
+        else if (enabledAutoScrollToEnd && newItemCount) {
+            this.setState({ newItemCount: 0 });
         }
     }
     render() {
-        const { contentContainerStyle, threshold, showScrollToEndIndicator, showNewMessageAlert, newMessageAlertRenderer, indicatorContainerStyle, indicatorComponent, ...restProps } = this.props;
-        const { enabledAutoScrollToEnd, newMessageCount, messageAlertY } = this.state;
+        const { contentContainerStyle, threshold, showScrollToEndIndicator, showNewItemAlert, newItemAlertRenderer, indicatorContainerStyle, indicatorComponent, ...restProps } = this.props;
+        const { enabledAutoScrollToEnd, newItemCount, alertY } = this.state;
         return (<View style={styles.container}>
                 <FlatList {...restProps} ref={this.listRef} contentContainerStyle={contentContainerStyle ?? styles.contentContainer} onLayout={this.onLayout} onContentSizeChange={this.onContentSizeChange} onScroll={this.onScroll}/>
-                {showNewMessageAlert && !enabledAutoScrollToEnd && newMessageCount > 0 && (<TouchableWithoutFeedback onPress={() => this.scrollToEnd()}>{newMessageAlertRenderer ? newMessageAlertRenderer(newMessageCount, messageAlertY) : this.renderDefaultNewMessageAlertComponent(newMessageCount, messageAlertY)}</TouchableWithoutFeedback>)}
+                {showNewItemAlert && !enabledAutoScrollToEnd && newItemCount > 0 && (<TouchableWithoutFeedback onPress={() => this.scrollToEnd()}>{newItemAlertRenderer ? newItemAlertRenderer(newItemCount, alertY) : this.renderDefaultNewItemAlertComponent(newItemCount, alertY)}</TouchableWithoutFeedback>)}
                 {showScrollToEndIndicator && !enabledAutoScrollToEnd && <TouchableWithoutFeedback onPress={() => this.scrollToEnd()}>{indicatorComponent ?? this.renderDefaultIndicatorComponent()}</TouchableWithoutFeedback>}
             </View>);
     }
@@ -142,7 +142,7 @@ export default class AutoScrollFlatList extends React.PureComponent {
 AutoScrollFlatList.defaultProps = {
     threshold: 0,
     showScrollToEndIndicator: true,
-    showNewMessageAlert: true,
+    showNewItemAlert: true,
 };
 const styles = StyleSheet.create({
     container: {
@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         backgroundColor: "#ffffff",
     },
-    newMessageAlert: {
+    newItemAlert: {
         position: "absolute",
         alignSelf: "center",
         flexDirection: "row",

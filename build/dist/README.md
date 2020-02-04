@@ -67,28 +67,13 @@ You can check out the `example` folder for further details.
 
 This component extends the official [`FlatListProps`](https://facebook.github.io/react-native/docs/flatlist) with the following additional props:
 
-| Prop                     | Type                                                                                                         | Required | Default value | Description                                                                       |
-| ------------------------ | ------------------------------------------------------------------------------------------------------------ | -------- | ------------- | --------------------------------------------------------------------------------- |
-| threshold                | number                                                                                                       | No       | 0             | Distance from end of list to enable auto-scrolling.                               |
-| showScrollToEndIndicator | boolean                                                                                                      | No       | true          | Whether to show an indicator to scroll to end.                                    |
-| showNewMessageAlert      | boolean                                                                                                      | No       | true          | Whether to show new message alert when auto-scrolling is temporarily disabled.    |
-| newMessageAlertRenderer  | (newMessageCount: number, translateY: Animated.Value) => React.ComponentType<any> &#124; React.ReactElement | No       | true          | The component that indicates number of new messages. Best with position absolute. |
-| indicatorContainerStyle  | StyleProp<ViewStyle>                                                                                         | No       | see code      | The style for container of the indicator. Best with position absolute.            |
-| indicatorComponent       | React.ComponentType<any> &#124; React.ReactElement &#124; null                                               | No       | see code      | The indicator itself. There is a default provided. See code for details.          |
+Please read `src/index.tsx` for more explanations and details.
 
 # Methods
 
-Below is the list of available methods you can call via `ref`:
+This component extends the official [`FlatList Methods`](https://facebook.github.io/react-native/docs/flatlist) with the following modified / additional methods:
 
-| Method                | Parameters                                                                              | Description                                                                                      |
-| --------------------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | 
-| scrollToEnd           | params: {animated: boolean} = {animated: true}                                          | Set `newMessageCount` (an internal state) to 0 and then trigger `scrollToOffset` to end of page. |
-| scrollToIndex         | params: {index: number; viewOffset?: number; viewPosition?: number; animated?: boolean} | same as [doc](https://facebook.github.io/react-native/docs/flatlist)                             | 
-| scrollToItem          | params: {item: T; viewPosition?: number; animated: boolean}                             | same as [doc](https://facebook.github.io/react-native/docs/flatlist)                             | 
-| scrollToOffset        | params: {offset: number; animated?: boolean}                                            | same as [doc](https://facebook.github.io/react-native/docs/flatlist)                             | 
-| recordInteraction     |                                                                                         | same as [doc](https://facebook.github.io/react-native/docs/flatlist)                             | 
-| flashScrollIndicators |                                                                                         | same as [doc](https://facebook.github.io/react-native/docs/flatlist)                             |
-| getScrollableNode     |                                                                                         | same as [doc](https://facebook.github.io/react-native/docs/flatlist)                             | 
-| getNativeScrollRef    |                                                                                         | same as [doc](https://facebook.github.io/react-native/docs/flatlist)                             | 
-| getScrollResponder    |                                                                                         | same as [doc](https://facebook.github.io/react-native/docs/flatlist)                             | 
-| isAutoScrolling       |                                                                                         | Returns whether auto-scrolling (boolean) is in effect.                                           | 
+| Method          | Parameters                                     | Description                                                                                      |
+| --------------- | ---------------------------------------------- | ------------------------------------------------------------------------------------------------ | 
+| scrollToEnd     | params: {animated: boolean} = {animated: true} | Set `newMessageCount` (an internal state) to 0 and then trigger `scrollToOffset` to end of page. | 
+| isAutoScrolling |                                                | Returns whether auto-scrolling (boolean) is in effect.                                           | 
