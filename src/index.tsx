@@ -45,7 +45,7 @@ interface Props<T> extends FlatListProps<T> {
      * This changes the wordings of the default newItemAlertMessage.
      * @param newItemCount - number of item since auto-scrolling is temporarily disabled.
      */
-    newItemAlertMessage?: (newItemCount: number) => string; // TODO: implement
+    newItemAlertMessage?: (newItemCount: number) => string; // TODO: implement, make mutually exclusive with newItemAlertRenderer
 
     /**
      * This applies additional ViewStyle to the <Animated.View> that wraps the default newItemAlert.

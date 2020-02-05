@@ -40,7 +40,7 @@ This component extends the official [`FlatList Methods`](https://facebook.github
 
 | Method          | Parameters                                     | Description                                                                                      |
 | --------------- | ---------------------------------------------- | ------------------------------------------------------------------------------------------------ | 
-| scrollToEnd     | params: {animated: boolean} = {animated: true} | Set `newMessageCount` (an internal state) to 0 and then trigger `scrollToOffset` to end of page. | 
+| scrollToEnd     | params: {animated: boolean} = {animated: true} | Set `newItemCount` to 0 and then trigger `scrollToOffset` to end of page. | 
 | isAutoScrolling |                                                | Returns whether auto-scrolling (boolean) is in effect.                                           | 
 
 # Troubleshoot
