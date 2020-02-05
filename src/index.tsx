@@ -44,18 +44,21 @@ interface Props<T> extends FlatListProps<T> {
     /**
      * This changes the wordings of the default newItemAlertMessage.
      * @param newItemCount - number of item since auto-scrolling is temporarily disabled.
+     * Note: Will be overridden if newItemAlertRenderer is set.
      */
-    newItemAlertMessage?: (newItemCount: number) => string; // TODO: implement, make mutually exclusive with newItemAlertRenderer
+    newItemAlertMessage?: (newItemCount: number) => string;
 
     /**
      * This applies additional ViewStyle to the <Animated.View> that wraps the default newItemAlert.
+     * Note: Will be overridden if newItemAlertRenderer is set.
      */
-    newItemAlertContainerStyle?: StyleProp<ViewStyle>; // TODO: implement, make mutually exclusive with newItemAlertRenderer
+    newItemAlertContainerStyle?: StyleProp<ViewStyle>;
 
     /**
      * This applies additional TextStyle to the <Text> that wraps the newItemAlertMessage.
+     * Note: Will be overridden if newItemAlertRenderer is set.
      */
-    newItemAlertTextStyle?: StyleProp<TextStyle>; // TODO: implement, make mutually exclusive with newItemAlertRenderer
+    newItemAlertTextStyle?: StyleProp<TextStyle>;
 
     /**
      * The component that indicates number of new messages. Best with position absolute.
@@ -226,12 +229,16 @@ export default class AutoScrollFlatList<T> extends React.PureComponent<Props<T>,
         });
     };
 
-    private renderDefaultNewItemAlertComponent = (newItemCount: number, translateY: Animated.Value) => (
-        <Animated.View style={[styles.newItemAlert, {transform: [{translateY}]}]}>
-            <Text style={styles.alertMessage}>{`${newItemCount} new item${newItemCount > 1 ? "s" : ""}`}</Text>
-            <Triangle size={4} />
-        </Animated.View>
-    );
+    private renderDefaultNewItemAlertComponent = (newItemCount: number, translateY: Animated.Value) => {
+        const {newItemAlertMessage, newItemAlertContainerStyle, newItemAlertTextStyle} = this.props;
+        const message = newItemAlertMessage ? newItemAlertMessage(newItemCount) : `${newItemCount} new item${newItemCount > 1 ? "s" : ""}`;
+        return (
+            <Animated.View style={[styles.newItemAlert, newItemAlertContainerStyle, {transform: [{translateY}]}]}>
+                <Text style={[styles.alertMessage, newItemAlertTextStyle]}>{message}</Text>
+                <Triangle size={4} />
+            </Animated.View>
+        );
+    };
 
     private renderDefaultIndicatorComponent = () => (
         <View style={this.props.indicatorContainerStyle ?? styles.scrollToEndIndicator}>

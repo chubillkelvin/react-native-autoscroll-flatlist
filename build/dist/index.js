@@ -98,10 +98,14 @@ export default class AutoScrollFlatList extends React.PureComponent {
                 }
             });
         };
-        this.renderDefaultNewItemAlertComponent = (newItemCount, translateY) => (<Animated.View style={[styles.newItemAlert, { transform: [{ translateY }] }]}>
-            <Text style={styles.alertMessage}>{`${newItemCount} new item${newItemCount > 1 ? "s" : ""}`}</Text>
-            <Triangle size={4}/>
-        </Animated.View>);
+        this.renderDefaultNewItemAlertComponent = (newItemCount, translateY) => {
+            const { newItemAlertMessage, newItemAlertContainerStyle, newItemAlertTextStyle } = this.props;
+            const message = newItemAlertMessage ? newItemAlertMessage(newItemCount) : `${newItemCount} new item${newItemCount > 1 ? "s" : ""}`;
+            return (<Animated.View style={[styles.newItemAlert, newItemAlertContainerStyle, { transform: [{ translateY }] }]}>
+                <Text style={[styles.alertMessage, newItemAlertTextStyle]}>{message}</Text>
+                <Triangle size={4}/>
+            </Animated.View>);
+        };
         this.renderDefaultIndicatorComponent = () => (<View style={this.props.indicatorContainerStyle ?? styles.scrollToEndIndicator}>
             <Triangle />
         </View>);
