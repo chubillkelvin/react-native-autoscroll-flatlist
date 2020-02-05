@@ -74,7 +74,7 @@ interface Props<T> extends FlatListProps<T> {
      * @param data - the original data props supplied to the list.
      *
      */
-    filteredDataForNewItemCount?: (data: readonly T[]) => readonly T[]; // TODO: implement
+    filteredDataForNewItemCount?: (data: readonly T[]) => readonly T[];
 }
 
 interface State {
@@ -105,10 +105,12 @@ export default class AutoScrollFlatList<T> extends React.PureComponent<Props<T>,
     private scrollTop: number = 0;
 
     componentDidUpdate(prevProps: Readonly<Props<T>>, prevState: Readonly<State>) {
-        const {data} = this.props;
+        const {data, filteredDataForNewItemCount} = this.props;
         const {enabledAutoScrollToEnd, newItemCount, alertY} = this.state;
-        if (!enabledAutoScrollToEnd && data && prevProps.data && data.length !== prevProps.data.length) {
-            const newCount = prevState.newItemCount + data.length - prevProps.data.length;
+        const filteredPrevData = filteredDataForNewItemCount ? filteredDataForNewItemCount(prevProps.data ?? []) : prevProps.data ?? [];
+        const filteredData = filteredDataForNewItemCount ? filteredDataForNewItemCount(data ?? []) : data ?? [];
+        if (!enabledAutoScrollToEnd && filteredData.length > filteredPrevData.length) {
+            const newCount = prevState.newItemCount + filteredData.length - filteredPrevData.length;
             this.setState({newItemCount: newCount});
             if (newCount === 1) {
                 alertY.setValue(-30);

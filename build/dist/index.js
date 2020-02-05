@@ -116,10 +116,12 @@ export default class AutoScrollFlatList extends React.PureComponent {
         };
     }
     componentDidUpdate(prevProps, prevState) {
-        const { data } = this.props;
+        const { data, filteredDataForNewItemCount } = this.props;
         const { enabledAutoScrollToEnd, newItemCount, alertY } = this.state;
-        if (!enabledAutoScrollToEnd && data && prevProps.data && data.length !== prevProps.data.length) {
-            const newCount = prevState.newItemCount + data.length - prevProps.data.length;
+        const filteredPrevData = filteredDataForNewItemCount ? filteredDataForNewItemCount(prevProps.data ?? []) : prevProps.data ?? [];
+        const filteredData = filteredDataForNewItemCount ? filteredDataForNewItemCount(data ?? []) : data ?? [];
+        if (!enabledAutoScrollToEnd && filteredData.length > filteredPrevData.length) {
+            const newCount = prevState.newItemCount + filteredData.length - filteredPrevData.length;
             this.setState({ newItemCount: newCount });
             if (newCount === 1) {
                 alertY.setValue(-30);
