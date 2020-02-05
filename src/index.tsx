@@ -229,6 +229,7 @@ export default class AutoScrollFlatList<T> extends React.PureComponent<Props<T>,
                 onScroll(event);
             }
         });
+        event.persist();
     };
 
     private renderDefaultNewItemAlertComponent = (newItemCount: number, translateY: Animated.Value) => {
