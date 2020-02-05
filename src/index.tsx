@@ -70,9 +70,9 @@ interface Props<T> extends FlatListProps<T> {
     newItemAlertRenderer?: (newItemCount: number, translateY: Animated.Value) => React.ComponentType<any> | React.ReactElement;
 
     /**
-     * This returns a filtered data array when is then used to count the newItemCount.
-     * @param data - the original data props supplied to the list.
+     * This returns a filtered data array which is then used to count the newItemCount.
      *
+     * @param data - the original data props supplied to the list.
      */
     filteredDataForNewItemCount?: (data: readonly T[]) => readonly T[];
 }
