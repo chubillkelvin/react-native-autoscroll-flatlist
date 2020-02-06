@@ -97,6 +97,7 @@ export default class AutoScrollFlatList extends React.PureComponent {
                     onScroll(event);
                 }
             });
+            event.persist();
         };
         this.renderDefaultNewItemAlertComponent = (newItemCount, translateY) => {
             const { newItemAlertMessage, newItemAlertContainerStyle, newItemAlertTextStyle } = this.props;
