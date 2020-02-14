@@ -250,11 +250,15 @@ export default class AutoScrollFlatList<T> extends React.PureComponent<Props<T>,
     );
 
     render() {
-        const {contentContainerStyle, threshold, showScrollToEndIndicator, showNewItemAlert, newItemAlertRenderer, indicatorContainerStyle, indicatorComponent, ...restProps} = this.props;
+        /**
+         * Need to force a refresh for the FlatList by changing the key when numColumns changes.
+         * Ref: https://stackoverflow.com/questions/44291781/dynamically-changing-number-of-columns-in-react-native-flat-list
+         */
+        const {contentContainerStyle, threshold, showScrollToEndIndicator, showNewItemAlert, newItemAlertRenderer, indicatorContainerStyle, indicatorComponent, numColumns, ...restProps} = this.props;
         const {enabledAutoScrollToEnd, newItemCount, alertY} = this.state;
         return (
             <View style={styles.container}>
-                <FlatList {...restProps} ref={this.listRef} contentContainerStyle={contentContainerStyle ?? styles.contentContainer} onLayout={this.onLayout} onContentSizeChange={this.onContentSizeChange} onScroll={this.onScroll} />
+                <FlatList {...restProps} ref={this.listRef} key={numColumns} numColumns={numColumns} contentContainerStyle={contentContainerStyle ?? styles.contentContainer} onLayout={this.onLayout} onContentSizeChange={this.onContentSizeChange} onScroll={this.onScroll} />
                 {showNewItemAlert && !enabledAutoScrollToEnd && newItemCount > 0 && (
                     <TouchableWithoutFeedback onPress={() => this.scrollToEnd()}>{newItemAlertRenderer ? newItemAlertRenderer(newItemCount, alertY) : this.renderDefaultNewItemAlertComponent(newItemCount, alertY)}</TouchableWithoutFeedback>
                 )}
