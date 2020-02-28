@@ -73,7 +73,13 @@ Please read `src/index.tsx` for more explanations and details.
 
 This component extends the official [`FlatList Methods`](https://facebook.github.io/react-native/docs/flatlist) with the following modified / additional methods:
 
-| Method          | Parameters                                     | Description                                                                                      |
-| --------------- | ---------------------------------------------- | ------------------------------------------------------------------------------------------------ | 
-| scrollToEnd     | params: {animated: boolean} = {animated: true} | Set `newItemCount` to 0 and then trigger `scrollToOffset` to end of page. | 
-| isAutoScrolling |                                                | Returns whether auto-scrolling (boolean) is in effect.                                           | 
+| Method          | Parameters                                     | Description                                                               |
+| --------------- | ---------------------------------------------- | ------------------------------------------------------------------------- |
+| scrollToEnd     | params: {animated: boolean} = {animated: true} | Set `newItemCount` to 0 and then trigger `scrollToOffset` to end of page. |
+| isAutoScrolling |                                                | Returns whether auto-scrolling (boolean) is in effect.                    |
+
+# TODOs
+
+1. Add support for inverted orientation.
+
+2. Add example for landscape usage.
