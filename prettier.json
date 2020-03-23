@@ -3,6 +3,7 @@
   "printWidth": 300,
   "trailingComma": "es5",
   "bracketSpacing": false,
+  "arrowParens": "avoid",
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js"],

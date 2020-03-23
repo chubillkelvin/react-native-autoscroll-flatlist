@@ -2,6 +2,7 @@
 
 [![react-native-autoscroll-flatlist is released under the MIT license.](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/RageBill/react-native-autoscroll-flatlist/blob/master/LICENSE)
 [![build status for react-native-autoscroll-flatlist](https://travis-ci.org/RageBill/react-native-autoscroll-flatlist.svg?branch=master)](https://travis-ci.org/RageBill/react-native-autoscroll-flatlist)
+[![react-native-autoscroll-flatlist's current npm package version](https://badge.fury.io/js/react-native-autoscroll-flatlist.svg)](https://www.npmjs.org/package/react-native-autoscroll-flatlist)
 
 An enhanced version of the original react-native `<FlatList>` component with built-in support for both Javascript and Typescript usage.
 
@@ -73,7 +74,13 @@ Please read `src/index.tsx` for more explanations and details.
 
 This component extends the official [`FlatList Methods`](https://facebook.github.io/react-native/docs/flatlist) with the following modified / additional methods:
 
-| Method          | Parameters                                     | Description                                                                                      |
-| --------------- | ---------------------------------------------- | ------------------------------------------------------------------------------------------------ | 
-| scrollToEnd     | params: {animated: boolean} = {animated: true} | Set `newItemCount` to 0 and then trigger `scrollToOffset` to end of page. | 
-| isAutoScrolling |                                                | Returns whether auto-scrolling (boolean) is in effect.                                           | 
+| Method          | Parameters                                     | Description                                                               |
+| --------------- | ---------------------------------------------- | ------------------------------------------------------------------------- |
+| scrollToEnd     | params: {animated: boolean} = {animated: true} | Set `newItemCount` to 0 and then trigger `scrollToOffset` to end of page. |
+| isAutoScrolling |                                                | Returns whether auto-scrolling (boolean) is in effect.                    |
+
+# TODOs
+
+1. Add support for inverted orientation.
+
+2. Add example for landscape usage.
