@@ -3,5 +3,5 @@ node_js:
   - "node"
 cache: yarn
 script:
-  - yarn run check
-  - yarn build
+  - yarn --cwd ./src run check
+  - yarn ==cwd ./src build

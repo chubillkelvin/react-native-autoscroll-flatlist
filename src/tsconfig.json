@@ -12,11 +12,10 @@
     "moduleResolution": "node",
     "noImplicitAny": true,
     "noImplicitThis": true,
-    "outDir": "./build/dist",
+    "outDir": "../build/dist",
     "sourceMap": true,
     "suppressImplicitAnyIndexErrors": true,
     "strict": true,
     "target": "esnext"
-  },
-  "include": ["./src/*"]
+  }
 }

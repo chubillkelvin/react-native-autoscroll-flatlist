@@ -13,12 +13,11 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-39.0.3.tar.gz",
-    "react-native-autoscroll-flatlist": "1.8.2",
+    "react-native-autoscroll-flatlist": "file:../../src",
     "react-native-web": "0.13.12"
   },
   "devDependencies": {
     "prettier": "2.1.2",
-    "react-native-web": "0.13.7",
     "@types/react": "16.9.35",
     "@types/react-dom": "16.9.8",
     "@types/react-native": "0.63.2",

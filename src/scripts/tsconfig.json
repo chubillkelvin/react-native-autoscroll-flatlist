@@ -18,5 +18,5 @@
     "strict": true,
     "target": "esnext"
   },
-  "include": ["../src/*"]
+  "include": ["../*"]
 }

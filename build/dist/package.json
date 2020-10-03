@@ -23,8 +23,8 @@
     "url": "https://github.com/RageBill/react-native-autoscroll-flatlist.git"
   },
   "scripts": {
-    "check": "node ./scripts/check.js",
-    "build": "node ./scripts/build.js"
+    "check": "node scripts/check.js",
+    "build": "node scripts/build.js"
   },
   "peerDependencies": {
     "react": "16.12.0",
