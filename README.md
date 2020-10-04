@@ -47,7 +47,7 @@ yarn add react-native-autoscroll-flatlist
 Import the component with:
 
 ```
-import AutoScrollFlatList from "react-native-autoscroll-flatlist";
+import {AutoScrollFlatList} from "react-native-autoscroll-flatlist";
 ```
 
 and simply use it like an ordinary `<FlatList>`, for example:
