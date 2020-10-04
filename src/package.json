@@ -23,26 +23,40 @@
     "url": "https://github.com/RageBill/react-native-autoscroll-flatlist.git"
   },
   "scripts": {
-    "check": "node scripts/check.js",
-    "build": "node scripts/build.js"
+    "ts-node": "TS_NODE_PROJECT=./script/tsconfig.json ./node_modules/.bin/ts-node",
+    "check": "yarn ts-node script/check.ts",
+    "format": "yarn ts-node script/format.ts",
+    "build": "yarn ts-node script/build.ts"
   },
   "peerDependencies": {
-    "react": "16.12.0",
+    "react": "16.13.1",
     "react-native": "0.61.5"
   },
   "devDependencies": {
-    "@types/react": "16.9.19",
-    "@types/react-native": "0.61.8",
-    "fs-extra": "8.1.0",
-    "prettier": "2.0.1",
-    "react": "16.12.0",
+    "@pinnacle0/eslint-plugin": "0.0.6",
+    "@types/fs-extra": "9.0.1",
+    "@types/react": "16.9.50",
+    "@types/react-native": "0.61.23",
+    "@types/yargs": "15.0.7",
+    "@typescript-eslint/eslint-plugin": "4.3.0",
+    "@typescript-eslint/parser": "4.3.0",
+    "chalk": "4.1.0",
+    "eslint": "7.10.0",
+    "eslint-config-prettier": "6.12.0",
+    "eslint-plugin-eslint-comments": "3.2.0",
+    "eslint-plugin-import": "2.22.1",
+    "eslint-plugin-react": "7.21.3",
+    "eslint-plugin-react-hooks": "4.1.2",
+    "fs-extra": "9.0.1",
+    "prettier": "2.1.2",
+    "react": "16.13.1",
     "react-native": "0.61.5",
     "react-native-scripts-ts": "1.15.0",
     "react-native-typescript-transformer": "1.2.13",
-    "tslib": "1.10.0",
-    "tslint": "5.20.1",
-    "tslint-react": "4.1.0",
-    "typescript": "3.7.5"
+    "tslib": "2.0.1",
+    "ts-node": "9.0.0",
+    "typescript": "4.0.3",
+    "yargs": "16.0.3"
   },
   "types": "index.d.ts"
 }

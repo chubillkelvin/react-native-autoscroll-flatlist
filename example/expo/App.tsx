@@ -11,7 +11,7 @@
 import React from "react";
 import {SafeAreaView, StyleSheet, View, Text, Dimensions} from "react-native";
 import {Colors} from "./Colors";
-import AutoScrollFlatList from "react-native-autoscroll-flatlist";
+import {AutoScrollFlatList} from "react-native-autoscroll-flatlist";
 
 interface Message {
     id: string;

@@ -7,7 +7,9 @@ interface Props {
     direction: "up" | "down" | "left" | "right";
 }
 
-export default class Triangle extends React.PureComponent<Props> {
+export class Triangle extends React.PureComponent<Props> {
+    static displayName = "Triangle";
+
     static defaultProps: Pick<Props, "size" | "color" | "direction"> = {
         size: 8,
         color: "#000000",

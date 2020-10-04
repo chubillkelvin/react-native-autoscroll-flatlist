@@ -4,4 +4,3 @@ node_js:
 cache: yarn
 script:
   - yarn --cwd ./src run check
-  - yarn --cwd ./src build
