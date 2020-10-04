@@ -3,4 +3,5 @@ node_js:
   - "node"
 cache: yarn
 script:
+  - yarn install ts-node
   - yarn --cwd ./src run check
