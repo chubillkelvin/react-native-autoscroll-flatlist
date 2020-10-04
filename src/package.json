@@ -4,7 +4,7 @@
   "description": "An enhanced React Native FlatList component to provide auto-scrolling functionality",
   "author": "Kelvin Chu <chubillkelvin@gmail.com> (github.com/RageBill)",
   "license": "MIT",
-  "main": "index.js",
+  "main": "index.tsx",
   "keywords": [
     "react",
     "reactjs",
