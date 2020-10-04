@@ -9,7 +9,7 @@
  */
 
 import React from "react";
-import {SafeAreaView, StyleSheet, View, Text} from "react-native";
+import {SafeAreaView, StyleSheet, View, Text, Dimensions} from "react-native";
 import {Colors} from "./Colors";
 import AutoScrollFlatList from "react-native-autoscroll-flatlist";
 
@@ -77,6 +77,8 @@ export default class App extends React.PureComponent<Props, State> {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        // ref: https://stackoverflow.com/questions/47976358/how-to-make-react-native-web-full-height
+        height: Dimensions.get("window").height,
         backgroundColor: Colors.TEAL_GREEN,
     },
     title: {
