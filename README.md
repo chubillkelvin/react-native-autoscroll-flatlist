@@ -79,6 +79,25 @@ This component extends the official [`FlatList Methods`](https://facebook.github
 | scrollToEnd     | params: {animated: boolean} = {animated: true} | Set `newItemCount` to 0 and then trigger `scrollToOffset` to end of page. |
 | isAutoScrolling |                                                | Returns whether auto-scrolling (boolean) is in effect.                    |
 
+# FAQ for usage on react-native-web
+
+There are certain caveats for usage on react-native-web:
+
+Q: My page keeps expanding in height and the autoscroll function is not being triggered. How do I fix this?
+
+A: For usage in react-native, usually add a flex property such as `flex: 1` to the container would be sufficient to get FlatList working.
+However, when it comes to react-native-web, you will have to explicitly set the height of the container such that it will not keep expanding.
+To do so, a simple fix would be to add 
+```javascript
+height: Dimensions.get("window").height
+``` 
+ to the container style (depending on your use cases).
+ 
+Q: When onScroll function is triggered, I see an error `TypeError: event.persist is not a function`, how do I fix it?
+
+A: This is because react-native-web is not fully compatible with react-native yet. Similar issue could be found [here](https://github.com/idibidiart/react-native-responsive-grid/issues/33).
+To fix, you can simply add [react-native-dom](https://github.com/vincentriemer/react-native-dom) to your dependency (see example app).
+
 # TODOs
 
 1. Add support for inverted orientation.
