@@ -1,6 +1,6 @@
 {
   "name": "react-native-autoscroll-flatlist",
-  "version": "1.9.0",
+  "version": "1.9.1",
   "description": "An enhanced React Native FlatList component to provide auto-scrolling functionality",
   "author": "Kelvin Chu <chubillkelvin@gmail.com> (github.com/RageBill)",
   "license": "MIT",
@@ -23,20 +23,20 @@
     "url": "https://github.com/RageBill/react-native-autoscroll-flatlist.git"
   },
   "scripts": {
-    "ts-node": "TS_NODE_PROJECT=./script/tsconfig.json ./node_modules/.bin/ts-node",
+    "ts-node": "TS_NODE_PROJECT=./script/tsconfig.json ts-node",
     "check": "yarn ts-node script/check.ts",
     "format": "yarn ts-node script/format.ts",
     "build": "yarn ts-node script/build.ts"
   },
   "peerDependencies": {
-    "react": "16.13.1",
-    "react-native": "0.61.5"
+    "react": "^16.13.1",
+    "react-native": "^0.63.2"
   },
   "devDependencies": {
     "@pinnacle0/eslint-plugin": "0.0.6",
     "@types/fs-extra": "9.0.1",
     "@types/react": "16.9.50",
-    "@types/react-native": "0.61.23",
+    "@types/react-native": "0.63.23",
     "@types/yargs": "15.0.7",
     "@typescript-eslint/eslint-plugin": "4.3.0",
     "@typescript-eslint/parser": "4.3.0",
@@ -49,11 +49,6 @@
     "eslint-plugin-react-hooks": "4.1.2",
     "fs-extra": "9.0.1",
     "prettier": "2.1.2",
-    "react": "16.13.1",
-    "react-native": "0.61.5",
-    "react-native-scripts-ts": "1.15.0",
-    "react-native-typescript-transformer": "1.2.13",
-    "tslib": "2.0.1",
     "ts-node": "9.0.0",
     "typescript": "4.0.3",
     "yargs": "16.0.3"
