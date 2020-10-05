@@ -3,5 +3,6 @@ node_js:
   - "node"
 cache: yarn
 script:
-  - TS_NODE_PROJECT=src/script/tsconfig.json npx ts-node src/script/check.ts
+  - cd src
+  - TS_NODE_PROJECT=cript/tsconfig.json npx ts-node script/check.ts
 
