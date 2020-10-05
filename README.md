@@ -92,11 +92,6 @@ To do so, a simple fix would be to add
 height: Dimensions.get("window").height
 ``` 
  to the container style (depending on your use cases).
- 
-Q: When onScroll function is triggered, I see an error `TypeError: event.persist is not a function`, how do I fix it?
-
-A: This is because react-native-web is not fully compatible with react-native yet. Similar issue could be found [here](https://github.com/idibidiart/react-native-responsive-grid/issues/33).
-To fix, you can simply add [react-native-dom](https://github.com/vincentriemer/react-native-dom) to your dependency (see example app).
 
 # TODOs
 

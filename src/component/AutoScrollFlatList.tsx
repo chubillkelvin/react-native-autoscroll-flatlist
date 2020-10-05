@@ -250,7 +250,10 @@ export class AutoScrollFlatList<T> extends React.PureComponent<Props<T>, State> 
                 onScroll(event);
             }
         });
-        event.persist();
+        /**
+         * Need to check if event.persist is defined before using to account for usage in react-native-web
+         */
+        event.persist && event.persist();
     };
 
     private renderDefaultNewItemAlertComponent = (newItemCount: number, translateY: Animated.Value) => {
