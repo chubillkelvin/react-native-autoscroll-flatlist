@@ -4,5 +4,5 @@ node_js:
 cache: yarn
 script:
   - cd src
-  - TS_NODE_PROJECT=cript/tsconfig.json npx ts-node script/check.ts
+  - TS_NODE_PROJECT=script/tsconfig.json npx ts-node script/check.ts
 
