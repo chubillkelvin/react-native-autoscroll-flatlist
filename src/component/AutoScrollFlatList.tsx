@@ -204,12 +204,14 @@ export class AutoScrollFlatList<T> extends React.PureComponent<Props<T>, State> 
 
     private renderDefaultNewItemAlertComponent = (newItemCount: number, translateY: Animated.Value) => {
         const {inverted, horizontal, newItemAlertMessage, newItemAlertContainerStyle, newItemAlertTextStyle} = this.props;
-        const message = newItemAlertMessage ? newItemAlertMessage(newItemCount) : `${newItemCount} new item${newItemCount > 1 ? "s" : ""}`;
+        const direction = this.getTriangleDirection();
+        const message = newItemAlertMessage ? newItemAlertMessage(newItemCount) : `${direction === "left" ? " " : ""}${newItemCount} new item${newItemCount > 1 ? "s" : ""}`;
         const position = inverted && !horizontal ? {bottom: translateY} : {top: translateY};
         return (
             <Animated.View style={[styles.newItemAlert, newItemAlertContainerStyle, position]}>
+                {direction === "left" && <Triangle size={4} direction={direction} />}
                 <Text style={[styles.alertMessage, newItemAlertTextStyle]}>{message}</Text>
-                <Triangle size={4} direction={this.getTriangleDirection()} />
+                {direction !== "left" && <Triangle size={4} direction={direction} />}
             </Animated.View>
         );
     };
