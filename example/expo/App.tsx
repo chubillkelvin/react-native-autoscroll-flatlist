@@ -79,6 +79,7 @@ const styles = StyleSheet.create({
         flex: 1,
         // ref: https://stackoverflow.com/questions/47976358/how-to-make-react-native-web-full-height
         height: Dimensions.get("window").height,
+        maxHeight: Dimensions.get("window").height,
         backgroundColor: Colors.TEAL_GREEN,
     },
     title: {
