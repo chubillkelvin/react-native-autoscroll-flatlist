@@ -1,5 +1,6 @@
-import type {Animated, FlatListProps, StyleProp, TextStyle, ViewStyle} from "react-native";
 import type React from "react";
+import type {Animated, FlatListProps, StyleProp, TextStyle, ViewStyle} from "react-native";
+import type {Props as TriangleProps} from "./Triangle";
 
 export interface Props<T> extends FlatListProps<T> {
     /**
@@ -66,4 +67,9 @@ export interface Props<T> extends FlatListProps<T> {
      * @param data - the original data props supplied to the list.
      */
     filteredDataForNewItemCount?: (data: readonly T[]) => readonly T[];
+
+    /**
+     * This controls the direction of the triangle shown when using the default indicator component.
+     */
+    triangleDirection?: TriangleProps["direction"];
 }

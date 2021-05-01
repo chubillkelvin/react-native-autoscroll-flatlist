@@ -30,6 +30,10 @@ Auto-scroll is disabled when scrolled away from end of list. There are 3 ways to
 
 ![scroll to end by tapping on newMessageAlert](https://github.com/RageBill/react-native-autoscroll-flatlist/blob/master/demo/newMessageAlert.gif?raw=true)
 
+- Inverted FlatList is also supported by passing the boolean `inverted` to the props.
+
+![inverted support](https://github.com/RageBill/react-native-autoscroll-flatlist/blob/master/demo/inverted.gif?raw=true)
+
 # Installation
 
 ```
@@ -95,6 +99,4 @@ height: Dimensions.get("window").height
 
 # TODOs
 
-1. Add support for inverted orientation.
-
-2. Add example for landscape usage.
+1. Add example for landscape usage.

@@ -1,7 +1,7 @@
 import React from "react";
 import {StyleSheet, View} from "react-native";
 
-interface Props {
+export interface Props {
     size: number;
     color: string;
     direction: "up" | "down" | "left" | "right";

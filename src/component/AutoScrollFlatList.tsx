@@ -134,10 +134,7 @@ export class AutoScrollFlatList<T> extends React.PureComponent<Props<T>, State> 
         }
 
         // User-defined onLayout event
-        const {onLayout} = this.props;
-        if (onLayout) {
-            onLayout(event);
-        }
+        this.props.onLayout?.(event);
     };
 
     private onContentSizeChange = (width: number, height: number) => {
@@ -147,10 +144,7 @@ export class AutoScrollFlatList<T> extends React.PureComponent<Props<T>, State> 
         }
 
         // User-defined onContentSizeChange event
-        const {onContentSizeChange} = this.props;
-        if (onContentSizeChange) {
-            onContentSizeChange(width, height);
-        }
+        this.props.onContentSizeChange?.(width, height);
     };
 
     private onScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
@@ -173,21 +167,26 @@ export class AutoScrollFlatList<T> extends React.PureComponent<Props<T>, State> 
     };
 
     private renderDefaultNewItemAlertComponent = (newItemCount: number, translateY: Animated.Value) => {
-        const {newItemAlertMessage, newItemAlertContainerStyle, newItemAlertTextStyle} = this.props;
+        const {inverted, newItemAlertMessage, newItemAlertContainerStyle, newItemAlertTextStyle, triangleDirection} = this.props;
         const message = newItemAlertMessage ? newItemAlertMessage(newItemCount) : `${newItemCount} new item${newItemCount > 1 ? "s" : ""}`;
+        const position = inverted ? {bottom: translateY} : {top: translateY};
         return (
-            <Animated.View style={[styles.newItemAlert, newItemAlertContainerStyle, {transform: [{translateY}]}]}>
+            <Animated.View style={[styles.newItemAlert, newItemAlertContainerStyle, position]}>
                 <Text style={[styles.alertMessage, newItemAlertTextStyle]}>{message}</Text>
-                <Triangle size={4} />
+                <Triangle size={4} direction={triangleDirection ?? inverted ? "up" : "down"} />
             </Animated.View>
         );
     };
 
-    private renderDefaultIndicatorComponent = () => (
-        <View style={this.props.indicatorContainerStyle ?? styles.scrollToEndIndicator}>
-            <Triangle />
-        </View>
-    );
+    private renderDefaultIndicatorComponent = () => {
+        const {inverted, indicatorContainerStyle, triangleDirection} = this.props;
+        const scrollToEndIndicatorPosition = inverted ? {top: 20} : {bottom: 20};
+        return (
+            <View style={indicatorContainerStyle ?? [styles.scrollToEndIndicator, scrollToEndIndicatorPosition]}>
+                <Triangle direction={triangleDirection ?? inverted ? "up" : "down"} />
+            </View>
+        );
+    };
 }
 
 const styles = StyleSheet.create({
@@ -203,7 +202,6 @@ const styles = StyleSheet.create({
     scrollToEndIndicator: {
         position: "absolute",
         right: 20,
-        bottom: 20,
         width: 30,
         height: 30,
         justifyContent: "center",
