@@ -9,20 +9,20 @@
     "format": "prettier --config prettier.json --write \"*.{js,jsx,ts,tsx,json}\""
   },
   "dependencies": {
-    "expo": "39.0.2",
+    "expo": "^41.0.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-39.0.3.tar.gz",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-41.0.0.tar.gz",
     "react-native-autoscroll-flatlist": "file:../../src",
-    "react-native-web": "0.13.12"
+    "react-native-web": "0.16.1"
   },
   "devDependencies": {
-    "prettier": "2.1.2",
-    "@types/node": "14.11.2",
-    "@types/react": "16.9.35",
-    "@types/react-dom": "16.9.8",
-    "@types/react-native": "0.63.2",
-    "typescript": "4.0.3"
+    "@types/node": "15.0.1",
+    "@types/react": "17.0.4",
+    "@types/react-dom": "17.0.3",
+    "@types/react-native": "0.64.4",
+    "prettier": "2.2.1",
+    "typescript": "4.2.4"
   },
   "private": true
 }

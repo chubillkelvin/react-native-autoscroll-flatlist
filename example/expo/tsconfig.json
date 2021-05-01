@@ -9,5 +9,6 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true
-  }
+  },
+  "extends": "expo/tsconfig.base"
 }
