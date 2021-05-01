@@ -94,6 +94,7 @@ However, when it comes to react-native-web, you will have to explicitly set the 
 To do so, a simple fix would be to add 
 ```javascript
 height: Dimensions.get("window").height
+maxHeight: Dimensions.get("window").height
 ``` 
  to the container style (depending on your use cases).
 
