@@ -14,6 +14,7 @@
     "noImplicitThis": true,
     "outDir": "../build/dist",
     "resolveJsonModule": true,
+    "skipLibCheck": true,
     "sourceMap": true,
     "suppressImplicitAnyIndexErrors": true,
     "strict": true,

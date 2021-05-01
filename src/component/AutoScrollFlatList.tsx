@@ -1,5 +1,6 @@
 import React from "react";
-import {Animated, FlatList, FlatListProps, LayoutChangeEvent, NativeScrollEvent, NativeSyntheticEvent, ScrollViewComponent, StyleProp, StyleSheet, Text, TextStyle, TouchableWithoutFeedback, View, ViewStyle} from "react-native";
+import type {FlatListProps, LayoutChangeEvent, NativeScrollEvent, NativeSyntheticEvent, ScrollViewComponent, StyleProp, TextStyle, ViewStyle} from "react-native";
+import {Animated, FlatList, StyleSheet, Text, TouchableWithoutFeedback, View} from "react-native";
 import {Triangle} from "./Triangle";
 
 /**

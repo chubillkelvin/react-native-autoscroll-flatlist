@@ -31,7 +31,7 @@ export class Triangle extends React.PureComponent<Props> {
             borderBottomColor: color,
             transform: [
                 {
-                    rotate: directionMapper[direction!],
+                    rotate: directionMapper[direction],
                 },
             ],
         };
