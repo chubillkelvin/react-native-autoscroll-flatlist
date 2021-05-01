@@ -3,6 +3,7 @@ import type {LayoutChangeEvent, NativeScrollEvent, NativeSyntheticEvent, ScrollV
 import {Animated, FlatList, StyleSheet, Text, TouchableWithoutFeedback, View} from "react-native";
 import {Triangle} from "./Triangle";
 import type {Props} from "./type";
+import type {Props as TriangleProps} from "./Triangle";
 
 /**
  * An enhanced React Native <FlatList> component to provide auto-scrolling functionality.
@@ -29,7 +30,9 @@ export class AutoScrollFlatList<T> extends React.PureComponent<Props<T>, State> 
 
     private readonly listRef: React.RefObject<FlatList<T>> = React.createRef();
     private flatListHeight: number = 0;
+    private flatListWidth: number = 0;
     private contentHeight: number = 0;
+    private contentWidth: number = 0;
     private scrollTop: number = 0;
 
     constructor(props: Props<T>) {
@@ -67,8 +70,9 @@ export class AutoScrollFlatList<T> extends React.PureComponent<Props<T>, State> 
      */
 
     scrollToEnd = (params: {animated: boolean} = {animated: true}) => {
+        const offset = this.props.horizontal ? this.contentWidth - this.flatListWidth : this.contentHeight - this.flatListHeight;
         this.setState({newItemCount: 0});
-        this.scrollToOffset({offset: this.contentHeight - this.flatListHeight, animated: params.animated});
+        this.scrollToOffset({offset, animated: params.animated});
     };
 
     scrollToIndex = (params: {index: number; viewOffset?: number; viewPosition?: number; animated?: boolean}) => {
@@ -127,8 +131,38 @@ export class AutoScrollFlatList<T> extends React.PureComponent<Props<T>, State> 
      * Private Methods
      */
 
+    private getTriangleDirection = (): TriangleProps["direction"] => {
+        const {inverted, horizontal, triangleDirection} = this.props;
+        let direction: TriangleProps["direction"];
+        if (horizontal) {
+            if (inverted) {
+                direction = "left";
+            } else {
+                direction = "right";
+            }
+        } else {
+            if (inverted) {
+                direction = "up";
+            } else {
+                direction = "down";
+            }
+        }
+        return triangleDirection ?? direction;
+    };
+
+    private getScrollToEndIndicatorPosition = () => {
+        const {inverted, horizontal} = this.props;
+        return {
+            top: inverted && !horizontal ? 20 : undefined,
+            bottom: inverted && !horizontal ? undefined : 20,
+            left: inverted && horizontal ? 30 : undefined,
+            right: inverted && horizontal ? undefined : 20,
+        };
+    };
+
     private onLayout = (event: LayoutChangeEvent) => {
         this.flatListHeight = event.nativeEvent.layout.height;
+        this.flatListWidth = event.nativeEvent.layout.width;
         if (this.listRef.current && this.state.enabledAutoScrollToEnd) {
             this.scrollToEnd();
         }
@@ -139,6 +173,7 @@ export class AutoScrollFlatList<T> extends React.PureComponent<Props<T>, State> 
 
     private onContentSizeChange = (width: number, height: number) => {
         this.contentHeight = height;
+        this.contentWidth = width;
         if (this.state.enabledAutoScrollToEnd) {
             this.scrollToEnd();
         }
@@ -155,7 +190,8 @@ export class AutoScrollFlatList<T> extends React.PureComponent<Props<T>, State> 
         const prevScrollTop = this.scrollTop;
         this.scrollTop = this.props.horizontal ? event.nativeEvent.contentOffset.x : event.nativeEvent.contentOffset.y;
         const isScrollingDown = prevScrollTop <= this.scrollTop;
-        const isEndOfList = this.scrollTop + this.props.threshold >= Math.floor(this.contentHeight - this.flatListHeight);
+        const scrollEnd = this.props.horizontal ? this.contentWidth - this.flatListWidth : this.contentHeight - this.flatListHeight;
+        const isEndOfList = this.scrollTop + this.props.threshold >= Math.floor(scrollEnd);
         this.setState({enabledAutoScrollToEnd: (this.state.enabledAutoScrollToEnd && isScrollingDown) || isEndOfList}, () => {
             // User-defined onScroll event
             this.props.onScroll?.(event);
@@ -167,23 +203,22 @@ export class AutoScrollFlatList<T> extends React.PureComponent<Props<T>, State> 
     };
 
     private renderDefaultNewItemAlertComponent = (newItemCount: number, translateY: Animated.Value) => {
-        const {inverted, newItemAlertMessage, newItemAlertContainerStyle, newItemAlertTextStyle, triangleDirection} = this.props;
+        const {inverted, horizontal, newItemAlertMessage, newItemAlertContainerStyle, newItemAlertTextStyle} = this.props;
         const message = newItemAlertMessage ? newItemAlertMessage(newItemCount) : `${newItemCount} new item${newItemCount > 1 ? "s" : ""}`;
-        const position = inverted ? {bottom: translateY} : {top: translateY};
+        const position = inverted && !horizontal ? {bottom: translateY} : {top: translateY};
         return (
             <Animated.View style={[styles.newItemAlert, newItemAlertContainerStyle, position]}>
                 <Text style={[styles.alertMessage, newItemAlertTextStyle]}>{message}</Text>
-                <Triangle size={4} direction={triangleDirection ?? inverted ? "up" : "down"} />
+                <Triangle size={4} direction={this.getTriangleDirection()} />
             </Animated.View>
         );
     };
 
     private renderDefaultIndicatorComponent = () => {
-        const {inverted, indicatorContainerStyle, triangleDirection} = this.props;
-        const scrollToEndIndicatorPosition = inverted ? {top: 20} : {bottom: 20};
+        const {indicatorContainerStyle} = this.props;
         return (
-            <View style={indicatorContainerStyle ?? [styles.scrollToEndIndicator, scrollToEndIndicatorPosition]}>
-                <Triangle direction={triangleDirection ?? inverted ? "up" : "down"} />
+            <View style={indicatorContainerStyle ?? [styles.scrollToEndIndicator, this.getScrollToEndIndicatorPosition()]}>
+                <Triangle direction={this.getTriangleDirection()} />
             </View>
         );
     };
@@ -201,7 +236,6 @@ const styles = StyleSheet.create({
     },
     scrollToEndIndicator: {
         position: "absolute",
-        right: 20,
         width: 30,
         height: 30,
         justifyContent: "center",

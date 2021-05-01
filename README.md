@@ -34,6 +34,12 @@ Auto-scroll is disabled when scrolled away from end of list. There are 3 ways to
 
 ![inverted support](https://github.com/RageBill/react-native-autoscroll-flatlist/blob/master/demo/inverted.gif?raw=true)
 
+- Horizontal (landscape) orientation is supported by passing the boolean `horizontal` to the props.
+
+![horizontal support](https://github.com/RageBill/react-native-autoscroll-flatlist/blob/master/demo/horizontal.gif?raw=true)
+
+![horizontal-inverted support](https://github.com/RageBill/react-native-autoscroll-flatlist/blob/master/demo/horizontal-inverted.gif?raw=true)
+
 # Installation
 
 ```
@@ -68,6 +74,10 @@ and simply use it like an ordinary `<FlatList>`, for example:
 
 You can check out the `example` folder for further details.
 
+You can check out `App.tsx`, or replace it with the content of `App-Horizontal.tsx` to try out usage in landscape orientation.
+
+Note that the landscape demo does not work in react-native-web because of the constraint with `ScreenOrientation` not being able to lock it to horizontal.
+
 # Properties
 
 This component extends the official [`FlatListProps`](https://facebook.github.io/react-native/docs/flatlist) with the following additional props:
@@ -97,7 +107,3 @@ height: Dimensions.get("window").height
 maxHeight: Dimensions.get("window").height
 ``` 
  to the container style (depending on your use cases).
-
-# TODOs
-
-1. Add example for landscape usage.

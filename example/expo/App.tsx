@@ -68,7 +68,7 @@ export default class App extends React.PureComponent<Props, State> {
                 <View style={styles.title}>
                     <Text style={styles.titleText}>react-native-autoscroll-flatlist</Text>
                 </View>
-                <AutoScrollFlatList inverted ref={this.ref} data={this.state.messages} renderItem={this.renderMessage} keyExtractor={(item) => item.id} style={styles.flatList} />
+                <AutoScrollFlatList ref={this.ref} data={this.state.messages} renderItem={this.renderMessage} keyExtractor={(item) => item.id} style={styles.flatList} />
             </SafeAreaView>
         );
     }
