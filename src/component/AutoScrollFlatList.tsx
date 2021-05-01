@@ -1,7 +1,8 @@
 import React from "react";
-import type {FlatListProps, LayoutChangeEvent, NativeScrollEvent, NativeSyntheticEvent, ScrollViewComponent, StyleProp, TextStyle, ViewStyle} from "react-native";
+import type {LayoutChangeEvent, NativeScrollEvent, NativeSyntheticEvent, ScrollViewComponent} from "react-native";
 import {Animated, FlatList, StyleSheet, Text, TouchableWithoutFeedback, View} from "react-native";
 import {Triangle} from "./Triangle";
+import type {Props} from "./type";
 
 /**
  * An enhanced React Native <FlatList> component to provide auto-scrolling functionality.
@@ -10,73 +11,6 @@ import {Triangle} from "./Triangle";
  * 2. the user has scrolled back and/or past the end of the list
  * This is to prevent auto-scrolling from annoying the user when the user tries to scroll and look for something in the list.
  */
-
-interface Props<T> extends FlatListProps<T> {
-    /**
-     * Distance from end of list to enable auto-scrolling.
-     * Default is 0.
-     */
-    threshold: number;
-
-    /**
-     * Whether to show an indicator to scroll to end.
-     * Default is true.
-     */
-    showScrollToEndIndicator: boolean;
-
-    /**
-     * Whether to show an alert on top when auto-scrolling is temporarily disabled.
-     * Default is true.
-     */
-    showNewItemAlert: boolean;
-
-    /**
-     * The style for container of the scrollToEndIndicator. Best used with position: "absolute".
-     * Default is styles.scrollToEndIndicator.
-     */
-    indicatorContainerStyle?: StyleProp<ViewStyle>;
-
-    /**
-     * The component for scrollToEndIndicator.
-     * A default component is provided.
-     */
-    indicatorComponent?: React.ComponentType<any> | React.ReactElement | null;
-
-    /**
-     * This changes the wordings of the default newItemAlertMessage.
-     * @param newItemCount - number of item since auto-scrolling is temporarily disabled.
-     * Note: Will be overridden if newItemAlertRenderer is set.
-     */
-    newItemAlertMessage?: (newItemCount: number) => string;
-
-    /**
-     * This applies additional ViewStyle to the <Animated.View> that wraps the default newItemAlert.
-     * Note: Will be overridden if newItemAlertRenderer is set.
-     */
-    newItemAlertContainerStyle?: StyleProp<ViewStyle>;
-
-    /**
-     * This applies additional TextStyle to the <Text> that wraps the newItemAlertMessage.
-     * Note: Will be overridden if newItemAlertRenderer is set.
-     */
-    newItemAlertTextStyle?: StyleProp<TextStyle>;
-
-    /**
-     * The component that indicates number of new messages. Best with position absolute.
-     * A default renderer is provided.
-     *
-     * @param newItemCount - number of item since auto-scrolling is temporarily disabled.
-     * @param translateY - the Animated Value for positioning the alert which slides in from top.
-     */
-    newItemAlertRenderer?: (newItemCount: number, translateY: Animated.Value) => React.ComponentType<any> | React.ReactElement;
-
-    /**
-     * This returns a filtered data array which is then used to count the newItemCount.
-     *
-     * @param data - the original data props supplied to the list.
-     */
-    filteredDataForNewItemCount?: (data: readonly T[]) => readonly T[];
-}
 
 interface State {
     enabledAutoScrollToEnd: boolean;
@@ -138,51 +72,35 @@ export class AutoScrollFlatList<T> extends React.PureComponent<Props<T>, State> 
     };
 
     scrollToIndex = (params: {index: number; viewOffset?: number; viewPosition?: number; animated?: boolean}) => {
-        if (this.listRef.current) {
-            this.listRef.current.scrollToIndex(params);
-        }
+        this.listRef.current?.scrollToIndex(params);
     };
 
     scrollToItem = (params: {item: T; viewPosition?: number; animated: boolean}) => {
-        if (this.listRef.current) {
-            this.listRef.current.scrollToItem(params);
-        }
+        this.listRef.current?.scrollToItem(params);
     };
 
     scrollToOffset = (params: {offset: number; animated?: boolean}) => {
-        if (this.listRef.current) {
-            this.listRef.current.scrollToOffset(params);
-        }
+        this.listRef.current?.scrollToOffset(params);
     };
 
     recordInteraction = () => {
-        if (this.listRef.current) {
-            this.listRef.current.recordInteraction();
-        }
+        this.listRef.current?.recordInteraction();
     };
 
     flashScrollIndicators = () => {
-        if (this.listRef.current) {
-            this.listRef.current.flashScrollIndicators();
-        }
+        this.listRef.current?.flashScrollIndicators();
     };
 
     getScrollableNode = (): any => {
-        if (this.listRef.current) {
-            return this.listRef.current.getScrollableNode();
-        }
+        return this.listRef.current?.getScrollableNode();
     };
 
     getNativeScrollRef = (): React.RefObject<View> | React.RefObject<ScrollViewComponent> | null | undefined => {
-        if (this.listRef.current) {
-            return this.listRef.current.getNativeScrollRef();
-        }
+        return this.listRef.current?.getNativeScrollRef();
     };
 
     getScrollResponder = (): JSX.Element | null | undefined => {
-        if (this.listRef.current) {
-            return this.listRef.current.getScrollResponder();
-        }
+        return this.listRef.current?.getScrollResponder();
     };
 
     isAutoScrolling = () => this.state.enabledAutoScrollToEnd;
@@ -246,15 +164,12 @@ export class AutoScrollFlatList<T> extends React.PureComponent<Props<T>, State> 
         const isEndOfList = this.scrollTop + this.props.threshold >= Math.floor(this.contentHeight - this.flatListHeight);
         this.setState({enabledAutoScrollToEnd: (this.state.enabledAutoScrollToEnd && isScrollingDown) || isEndOfList}, () => {
             // User-defined onScroll event
-            const {onScroll} = this.props;
-            if (onScroll) {
-                onScroll(event);
-            }
+            this.props.onScroll?.(event);
         });
         /**
          * Need to check if event.persist is defined before using to account for usage in react-native-web
          */
-        event.persist && event.persist();
+        event.persist?.();
     };
 
     private renderDefaultNewItemAlertComponent = (newItemCount: number, translateY: Animated.Value) => {
