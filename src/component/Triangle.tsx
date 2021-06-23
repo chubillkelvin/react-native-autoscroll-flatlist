@@ -19,7 +19,7 @@ export class Triangle extends React.PureComponent<Props> {
     render() {
         const {size, color, direction} = this.props;
         const directionMapper = {
-            up: "0",
+            up: "0deg",
             down: "180deg",
             left: "270deg",
             right: "90deg",
