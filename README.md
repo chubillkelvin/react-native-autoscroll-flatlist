@@ -82,7 +82,7 @@ Note that the landscape demo does not work in react-native-web because of the co
 
 This component extends the official [`FlatListProps`](https://facebook.github.io/react-native/docs/flatlist) with the following additional props:
 
-Please read `src/index.tsx` for more explanations and details.
+You can read the [type definitions file](https://github.com/RageBill/react-native-autoscroll-flatlist/blob/master/src/component/type.ts) for more details and explanations.
 
 # Methods
 

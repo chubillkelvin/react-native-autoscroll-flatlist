@@ -72,4 +72,10 @@ export interface Props<T> extends FlatListProps<T> {
      * This controls the direction of the triangle shown when using the default indicator component.
      */
     triangleDirection?: TriangleProps["direction"];
+
+    /**
+     * This is an extra condition to check if auto-scrolling is disabled.
+     * When false, auto-scrolling will not happen.
+     */
+    autoScrollDisabled?: boolean;
 }

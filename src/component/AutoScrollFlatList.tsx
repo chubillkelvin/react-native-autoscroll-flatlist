@@ -17,15 +17,17 @@ interface State {
     enabledAutoScrollToEnd: boolean;
     newItemCount: number;
     alertY: Animated.Value;
+    isEndOfList: boolean;
 }
 
 export class AutoScrollFlatList<T> extends React.PureComponent<Props<T>, State> {
     static displayName = "AutoScrollFlatList";
 
-    static defaultProps: Pick<Props<any>, "threshold" | "showScrollToEndIndicator" | "showNewItemAlert"> = {
+    static defaultProps: Pick<Props<any>, "threshold" | "showScrollToEndIndicator" | "showNewItemAlert" | "autoScrollDisabled"> = {
         threshold: 0,
         showScrollToEndIndicator: true,
         showNewItemAlert: true,
+        autoScrollDisabled: false,
     };
 
     private readonly listRef: React.RefObject<FlatList<T>> = React.createRef();
@@ -38,9 +40,10 @@ export class AutoScrollFlatList<T> extends React.PureComponent<Props<T>, State> 
     constructor(props: Props<T>) {
         super(props);
         this.state = {
-            enabledAutoScrollToEnd: true,
+            enabledAutoScrollToEnd: props.autoScrollDisabled ? false : true,
             newItemCount: 0,
             alertY: new Animated.Value(0),
+            isEndOfList: true,
         };
     }
 
@@ -115,14 +118,14 @@ export class AutoScrollFlatList<T> extends React.PureComponent<Props<T>, State> 
          * Ref: https://stackoverflow.com/questions/44291781/dynamically-changing-number-of-columns-in-react-native-flat-list
          */
         const {contentContainerStyle, threshold, showScrollToEndIndicator, showNewItemAlert, newItemAlertRenderer, indicatorContainerStyle, indicatorComponent, numColumns, ...restProps} = this.props;
-        const {enabledAutoScrollToEnd, newItemCount, alertY} = this.state;
+        const {enabledAutoScrollToEnd, newItemCount, alertY, isEndOfList} = this.state;
         return (
             <View style={styles.container}>
                 <FlatList {...restProps} ref={this.listRef} key={numColumns} numColumns={numColumns} contentContainerStyle={contentContainerStyle ?? styles.contentContainer} onLayout={this.onLayout} onContentSizeChange={this.onContentSizeChange} onScroll={this.onScroll} />
                 {showNewItemAlert && !enabledAutoScrollToEnd && newItemCount > 0 && (
                     <TouchableWithoutFeedback onPress={() => this.scrollToEnd()}>{newItemAlertRenderer ? newItemAlertRenderer(newItemCount, alertY) : this.renderDefaultNewItemAlertComponent(newItemCount, alertY)}</TouchableWithoutFeedback>
                 )}
-                {showScrollToEndIndicator && !enabledAutoScrollToEnd && <TouchableWithoutFeedback onPress={() => this.scrollToEnd()}>{indicatorComponent ?? this.renderDefaultIndicatorComponent()}</TouchableWithoutFeedback>}
+                {showScrollToEndIndicator && !enabledAutoScrollToEnd && !isEndOfList && <TouchableWithoutFeedback onPress={() => this.scrollToEnd()}>{indicatorComponent ?? this.renderDefaultIndicatorComponent()}</TouchableWithoutFeedback>}
             </View>
         );
     }
@@ -192,7 +195,7 @@ export class AutoScrollFlatList<T> extends React.PureComponent<Props<T>, State> 
         const isScrollingDown = prevScrollTop <= this.scrollTop;
         const scrollEnd = this.props.horizontal ? this.contentWidth - this.flatListWidth : this.contentHeight - this.flatListHeight;
         const isEndOfList = this.scrollTop + this.props.threshold >= Math.floor(scrollEnd);
-        this.setState({enabledAutoScrollToEnd: (this.state.enabledAutoScrollToEnd && isScrollingDown) || isEndOfList}, () => {
+        this.setState({isEndOfList, enabledAutoScrollToEnd: this.props.autoScrollDisabled ? false : (this.state.enabledAutoScrollToEnd && isScrollingDown) || isEndOfList}, () => {
             // User-defined onScroll event
             this.props.onScroll?.(event);
         });
