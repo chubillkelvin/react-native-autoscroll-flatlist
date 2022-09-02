@@ -1,7 +1,6 @@
 # react-native-autoscroll-flatlist
 
 [![react-native-autoscroll-flatlist is released under the MIT license.](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/chubillkelvin/react-native-autoscroll-flatlist/blob/master/LICENSE)
-[![build status for react-native-autoscroll-flatlist](https://travis-ci.org/chubillkelvin/react-native-autoscroll-flatlist.svg?branch=master)](https://travis-ci.org/chubillkelvin/react-native-autoscroll-flatlist)
 [![react-native-autoscroll-flatlist's current npm package version](https://badge.fury.io/js/react-native-autoscroll-flatlist.svg)](https://www.npmjs.org/package/react-native-autoscroll-flatlist)
 
 An enhanced version of the original react-native `<FlatList>` component with built-in support for both Javascript and Typescript usage.

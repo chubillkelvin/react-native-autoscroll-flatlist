@@ -1,8 +1,0 @@
-language: node_js
-node_js:
-  - "node"
-cache: yarn
-script:
-  - cd src
-  - yarn
-  - yarn run check
