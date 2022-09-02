@@ -1,7 +1,7 @@
 # react-native-autoscroll-flatlist
 
-[![react-native-autoscroll-flatlist is released under the MIT license.](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/RageBill/react-native-autoscroll-flatlist/blob/master/LICENSE)
-[![build status for react-native-autoscroll-flatlist](https://travis-ci.org/RageBill/react-native-autoscroll-flatlist.svg?branch=master)](https://travis-ci.org/RageBill/react-native-autoscroll-flatlist)
+[![react-native-autoscroll-flatlist is released under the MIT license.](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/chubillkelvin/react-native-autoscroll-flatlist/blob/master/LICENSE)
+[![build status for react-native-autoscroll-flatlist](https://travis-ci.org/chubillkelvin/react-native-autoscroll-flatlist.svg?branch=master)](https://travis-ci.org/chubillkelvin/react-native-autoscroll-flatlist)
 [![react-native-autoscroll-flatlist's current npm package version](https://badge.fury.io/js/react-native-autoscroll-flatlist.svg)](https://www.npmjs.org/package/react-native-autoscroll-flatlist)
 
 An enhanced version of the original react-native `<FlatList>` component with built-in support for both Javascript and Typescript usage.
@@ -12,7 +12,7 @@ Now supports horizontal `<FlatList>` as well in version `>= 1.6.0`.
 
 # Demo
 
-![demo](https://github.com/RageBill/react-native-autoscroll-flatlist/blob/master/demo/autoscroll.gif?raw=true)
+![demo](https://github.com/chubillkelvin/react-native-autoscroll-flatlist/blob/master/demo/autoscroll.gif?raw=true)
 
 # Features
 
@@ -20,25 +20,25 @@ Auto-scroll is disabled when scrolled away from end of list. There are 3 ways to
 
 - You can manually scroll back to the end of list.
 
-![scroll to end manually](https://github.com/RageBill/react-native-autoscroll-flatlist/blob/master/demo/selfScrollToEnd.gif?raw=true)
+![scroll to end manually](https://github.com/chubillkelvin/react-native-autoscroll-flatlist/blob/master/demo/selfScrollToEnd.gif?raw=true)
 
 - You can tap on the `scrollToEndIndicator` (customizable) shown on the bottom right of the list.
 
-![scroll to end by tapping on scrollToEndIndicator](https://github.com/RageBill/react-native-autoscroll-flatlist/blob/master/demo/scrollToEndIndicator.gif?raw=true)
+![scroll to end by tapping on scrollToEndIndicator](https://github.com/chubillkelvin/react-native-autoscroll-flatlist/blob/master/demo/scrollToEndIndicator.gif?raw=true)
 
 - You can tap on the `newMessageAlertComponent` (customizable) shown on the top of the list.
 
-![scroll to end by tapping on newMessageAlert](https://github.com/RageBill/react-native-autoscroll-flatlist/blob/master/demo/newMessageAlert.gif?raw=true)
+![scroll to end by tapping on newMessageAlert](https://github.com/chubillkelvin/react-native-autoscroll-flatlist/blob/master/demo/newMessageAlert.gif?raw=true)
 
 - Inverted FlatList is also supported by passing the boolean `inverted` to the props.
 
-![inverted support](https://github.com/RageBill/react-native-autoscroll-flatlist/blob/master/demo/inverted.gif?raw=true)
+![inverted support](https://github.com/chubillkelvin/react-native-autoscroll-flatlist/blob/master/demo/inverted.gif?raw=true)
 
 - Horizontal (landscape) orientation is supported by passing the boolean `horizontal` to the props.
 
-![horizontal support](https://github.com/RageBill/react-native-autoscroll-flatlist/blob/master/demo/horizontal.gif?raw=true)
+![horizontal support](https://github.com/chubillkelvin/react-native-autoscroll-flatlist/blob/master/demo/horizontal.gif?raw=true)
 
-![horizontal-inverted support](https://github.com/RageBill/react-native-autoscroll-flatlist/blob/master/demo/horizontal-inverted.gif?raw=true)
+![horizontal-inverted support](https://github.com/chubillkelvin/react-native-autoscroll-flatlist/blob/master/demo/horizontal-inverted.gif?raw=true)
 
 # Installation
 
@@ -82,7 +82,7 @@ Note that the landscape demo does not work in react-native-web because of the co
 
 This component extends the official [`FlatListProps`](https://facebook.github.io/react-native/docs/flatlist) with the following additional props:
 
-You can read the [type definitions file](https://github.com/RageBill/react-native-autoscroll-flatlist/blob/master/src/component/type.ts) for more details and explanations.
+You can read the [type definitions file](https://github.com/chubillkelvin/react-native-autoscroll-flatlist/blob/master/src/component/type.ts) for more details and explanations.
 
 # Methods
 
